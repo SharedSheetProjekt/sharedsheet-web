@@ -10,7 +10,7 @@ const NavLink = ({ label, exactMatch, to }) => {
     });
 
     return (
-        <Link to={to} className={ "nav-link " + (match ? "active-link": "") }>{label}</Link>
+        <Link to={to} className={ `nav-link ${(match ? "active-link": "")}` }>{label}</Link>
     )
 }
 

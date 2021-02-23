@@ -13,6 +13,7 @@ import Login from './components/pages/Login';
 import Sheets from './components/pages/Sheets';
 import Account from './components/pages/Account';
 import About from './components/pages/About';
+import NotFound404 from './components/pages/NotFound404';
 
 const App = () => {
   return (
@@ -36,6 +37,9 @@ const App = () => {
             </Route>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route>
+              <NotFound404 path="*" />
             </Route>
           </Switch>
         </main>
