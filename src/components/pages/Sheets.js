@@ -13,7 +13,7 @@ const Sheets = () => {
         <div>
             <Switch>
                 <Route exact path={path}>
-                    Sheets
+                    <h1>Sheets</h1>
                 </Route>
                 <Route exact path={`${path}/:sheetID`}>
                     <Sheet />

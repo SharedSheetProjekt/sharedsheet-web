@@ -10,6 +10,7 @@ import Header from './components/structures/Header';
 
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
+import Register from './components/pages/Register';
 import Sheets from './components/pages/Sheets';
 import Account from './components/pages/Account';
 import About from './components/pages/About';
@@ -31,6 +32,9 @@ const App = () => {
             </Route>
             <Route path="/sheets">
               <Sheets />
+            </Route>
+            <Route exact path="/register">
+              <Register />
             </Route>
             <Route exact path="/login">
               <Login />
