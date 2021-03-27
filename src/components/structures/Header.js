@@ -1,4 +1,5 @@
-import { Link,  useRouteMatch } from 'react-router-dom';
+import { Link,  useRouteMatch, useHistory } from 'react-router-dom';
+import auth from '../../scripts/auth';
 
 import '../../CSS/Header.css';
 
@@ -15,6 +16,8 @@ const NavLink = ({ label, exactMatch, to }) => {
 }
 
 const Header = () => {
+    let history = useHistory();
+
     return (
         <header id="main-header" style={{ display: "flex", justifyContent: "space-between" }}>
             <div style={{  }}>
@@ -44,6 +47,12 @@ const Header = () => {
             <div style={{ padding: "18px" }}>
                 Benutzername <img src="" alt="ProfilePic"/>
             </div>
+            <button onClick={ () => {
+                auth.logout(() => {
+                    console.log("Logout!");
+                    history.push("/");
+                })
+            } }>Logout</button>
         </header>
     )
 }

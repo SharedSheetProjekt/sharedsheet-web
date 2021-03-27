@@ -1,9 +1,25 @@
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import auth from '../../scripts/auth';
 
 import Register from './Register';
 
 const Login = () => {
+    let history = useHistory();
+
     return (
+        <button onClick={
+            () => {
+                auth.login(() => {
+                    console.log("Login!");
+                    history.push("/sheets");
+                });
+            }
+        }>
+            Login
+        </button>
+    );
+
+    /*return (
         <div>
             <h1>Login</h1>
 
@@ -19,7 +35,7 @@ const Login = () => {
             </p>
             
         </div>
-    )
+    )*/
 }
 
 export default Login
