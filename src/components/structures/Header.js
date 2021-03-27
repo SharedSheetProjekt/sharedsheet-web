@@ -11,7 +11,7 @@ const NavLink = ({ label, exactMatch, to }) => {
     });
 
     return (
-        <Link to={to} className={ `nav-link ${(match ? "active-link": "")}` }>{label}</Link>
+        <Link to={to} className={ `nav-link ${(match ? 'active-link': '')}` }>{label}</Link>
     )
 }
 
@@ -19,7 +19,7 @@ const Header = () => {
     let history = useHistory();
 
     return (
-        <header id="main-header" style={{ display: "flex", justifyContent: "space-between" }}>
+        <header id="main-header" style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div style={{  }}>
                 <ul>
                     <li>
@@ -44,13 +44,13 @@ const Header = () => {
                     </li>
                 </ul>
             </div>
-            <div style={{ padding: "18px" }}>
+            <div style={{ padding: '18px' }}>
                 Benutzername <img src="" alt="ProfilePic"/>
             </div>
             <button onClick={ () => {
                 auth.logout(() => {
-                    console.log("Logout!");
-                    history.push("/");
+                    console.log('Logout!');
+                    history.push('/');
                 })
             } }>Logout</button>
         </header>
