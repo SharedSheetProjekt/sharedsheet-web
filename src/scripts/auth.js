@@ -32,7 +32,8 @@ class Auth {
     }
 
     isAuthenticated() {
-        return this.authenticated;
+        return true;//this.authenticated;
+        /* !!!  Change back if authentification is needed. This is debug mode.  !!! */
     }
 }
 
