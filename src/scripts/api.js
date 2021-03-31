@@ -16,8 +16,8 @@ const request = async (url, params) => {
 export const api_login = async (username, password, device_name) => {
     console.log('api_login...');
     try {
-        const response = await request('/users/login', {username: username, password: password, device_name: device_name});
-        return response.token;
+        const response = await request('/users/login/web', {username: username, password: password});
+        return response.data.token;
     } catch (error) {
         console.log(error);
         if (error.response.data.status === 'error') {
@@ -30,7 +30,7 @@ export const api_register = async (username, password, email, device_name, secre
     console.log('api_register...');
     try {
         const response = await request('/users/register', {username: username, password: password, email: email, device_name: device_name, secret: secret});
-        return response.token;
+        return response.data.token;
     } catch (error) {
         console.log(error);
         if (error.response.data.status === 'error') {

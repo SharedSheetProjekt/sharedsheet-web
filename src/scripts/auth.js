@@ -21,7 +21,7 @@ class Auth {
     }
 
     async login(cb, username, password) {
-        const token = await api_login(username, password, 'device_name');
+        const token = await api_login(username, password);
         
         if (token !== undefined) {
             if (typeof(Storage) !== 'undefined') {
@@ -47,8 +47,8 @@ class Auth {
     }
 
     isAuthenticated() {
-        return true;//this.authenticated;
-        /* !!!  Change back if authentification is needed. This is debug mode.  !!! */
+        return this.authenticated;
+        /* !!!  (Change back if authentification is needed. This is debug mode.) Now activated.  !!! */
     }
 }
 

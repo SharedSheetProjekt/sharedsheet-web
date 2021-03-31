@@ -3,6 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import auth from '../../scripts/auth';
 
 import ResponseInfo from '../structures/ResponseInfo';
+import Loader from '../structures/Loader';
 
 import '../../CSS/input.css';
 
@@ -10,6 +11,8 @@ import React from 'react'
 
 const Login = () => {
     let history = useHistory();
+
+    const [isLoading, setLoading] = useState(false);
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -63,6 +66,7 @@ const Login = () => {
 
             <ResponseInfo isValid={ validLogin } validOuput="Anmeldung erfolgreich!" nonValidOuput="Anmeldung fehlgeschlagen!" onlyNonValid={ false } />
             
+            <Loader isLoading={ isLoading } />
         </div>
     )
 }

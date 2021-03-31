@@ -3,10 +3,13 @@ import { Link, useHistory } from 'react-router-dom';
 import auth from '../../scripts/auth';
 
 import ResponseInfo from '../structures/ResponseInfo';
+import Loader from '../structures/Loader';
 import '../../CSS/input.css';
 
 const Register = () => {
     let history = useHistory();
+
+    const [isLoading, setLoading] = useState(false);
 
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
@@ -66,7 +69,6 @@ const Register = () => {
         }
 
         if (username !== '' && email !== '' && password !== '' && repeatedPassword !== '' && password.length >= 8 && password === repeatedPassword) {
-            auth.register(null, username, password, email);
             if (
                 await auth.register(() => {
                     console.log('Registered!');
@@ -107,6 +109,8 @@ const Register = () => {
             <ResponseInfo isValid={ validRepeatedPassword } nonValidOuput="Wiederholtes Passwort stimmt mit Passwort nicht überein!" onlyNonValid={ true } />
 
             <ResponseInfo isValid={ validLogin } validOuput="Registrierung erfolgreich!" nonValidOuput="Registrierung fehlgeschlagen!" onlyNonValid={ false } />
+
+            <Loader isLoading={ isLoading } />
         </div>
     )
 }
