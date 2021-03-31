@@ -2,20 +2,11 @@ import { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import auth from '../../scripts/auth';
 
-import Register from './Register';
+import ResponseInfo from '../structures/ResponseInfo';
+
+import '../../CSS/input.css';
 
 import React from 'react'
-
-const ResponseBox = ({ isValid }) => {
-    if (isValid)
-    {
-        return <p>Anmeldung erfolgreich!</p>;
-    } else if (!isValid && isValid !== null) {
-        return <p>Anmeldung fehlgeschlagen!</p>;
-    } else {
-        return '';
-    }
-}
 
 const Login = () => {
     let history = useHistory();
@@ -38,7 +29,7 @@ const Login = () => {
         if(username !== '' && password !== '') {
             if (
                 await auth.login(() => {
-                    console.log('Login!');
+                    console.log('Logged in!');
                     history.push('/sheets');
                 },
                 username,
@@ -58,10 +49,10 @@ const Login = () => {
 
             <form onSubmit={ handleSubmit }>
                 <label htmlFor="username">EMail: </label><br/>
-                <input type="email" id="username" onChange={ handleUsername } /><br/>
+                <input type="email" id="username" onChange={ handleUsername } required /><br/>
 
                 <label htmlFor="password">Passwort: </label><br/>
-                <input type="password" id="password" onChange={ handlePassword } /><br/><br/>
+                <input type="password" id="password" onChange={ handlePassword } required /><br/><br/>
                 
                 <input type="submit" value="Anmelden" />
             </form>
@@ -70,7 +61,7 @@ const Login = () => {
                 Neu bei SharedSheets? <Link to="/register">Registrieren</Link>
             </p>
 
-            <ResponseBox isValid={ validLogin } />
+            <ResponseInfo isValid={ validLogin } validOuput="Anmeldung erfolgreich!" nonValidOuput="Anmeldung fehlgeschlagen!" onlyNonValid={ false } />
             
         </div>
     )

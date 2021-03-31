@@ -4,7 +4,7 @@ import hljs from 'highlight.js';
 import '../../CSS/highlight.js.css';
 
 var md = new Remarkable({
-    html:         true,        // Enable HTML tags in source
+    html:         false,        // Enable HTML tags in source
     xhtmlOut:     false,        // Use '/' to close single tags (<br />)
     breaks:       false,        // Convert '\n' in paragraphs into <br>
     langPrefix:   'language-',  // CSS language prefix for fenced blocks
@@ -46,7 +46,7 @@ const MarkdownTest = () => {
 
     return (
         <div>
-            <textarea rows="10" cols="100" defaultValue={ text } onChange={ handleMarkdown } />
+            <textarea id="markdown_input" rows="10" defaultValue={ text } onChange={ handleMarkdown } />
             <div id="markdown_output" dangerouslySetInnerHTML={ loadMarkdown() } />     
         </div>
     )

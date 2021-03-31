@@ -14,6 +14,7 @@ const request = async (url, params) => {
 
 
 export const api_login = async (username, password, device_name) => {
+    console.log('api_login...');
     try {
         const response = await request('/users/login', {username: username, password: password, device_name: device_name});
         return response.token;
@@ -25,9 +26,10 @@ export const api_login = async (username, password, device_name) => {
     }
 }
 
-export const api_register = async (username, password, email, device_name) => {
+export const api_register = async (username, password, email, device_name, secret) => {
+    console.log('api_register...');
     try {
-        const response = await request('/users/register', {username: username, password: password, email: email, device_name: device_name});
+        const response = await request('/users/register', {username: username, password: password, email: email, device_name: device_name, secret: secret});
         return response.token;
     } catch (error) {
         console.log(error);

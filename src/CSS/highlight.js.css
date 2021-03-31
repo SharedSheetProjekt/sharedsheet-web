@@ -3,11 +3,17 @@
  * Author: Nicolas LLOBERA <nllobera@gmail.com>
  */
 
+ #markdown_input {
+   box-sizing: border-box;
+   width: 100%;
+ }
+
  code {
     display: block;
     overflow-x: auto;
-    padding: 0.5em;
-    border-radius: 0.2em;
+    font-size: 0.8rem;
+    padding: 0.5rem;
+    border-radius: 0.2rem;
     background: #1E1E1E;
     color: #DCDCDC;
   }
