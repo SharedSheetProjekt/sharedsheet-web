@@ -51,7 +51,7 @@ const Header = () => {
                 auth.logout(() => {
                     console.log('Logout!');
                     history.push('/');
-                })
+                });
             } }>Logout</button>
         </header>
     )

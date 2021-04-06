@@ -1,4 +1,4 @@
-import { api_login, api_register } from './api';
+import { api_login, api_register, api_logout } from './api';
 
 class Auth {
     constructor () {
@@ -35,15 +35,19 @@ class Auth {
         }
     }
 
-    logout(cb) {
+    async logout(cb) {
+        const sucessful_logout = await api_logout();
+
         if (typeof(Storage) !== 'undefined') {
             sessionStorage.removeItem('SharedSheets_Token');
         } else {
             alert('Ihr Browser ist veraltet!\nBitte verwenden Sie einen moderneren Browser, um die Funktionalität der Website zu gewährleisten!');
         }
 
-        this.authenticated = false;
-        cb();
+        if(sucessful_logout) {
+            this.authenticated = false;
+            cb();
+        }
     }
 
     isAuthenticated() {
