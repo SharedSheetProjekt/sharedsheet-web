@@ -1,8 +1,15 @@
-import { api_login, api_register, api_logout } from './api';
+import { setAuthenticationToken ,api_login, api_register, api_logout } from './api';
 
 class Auth {
     constructor () {
-        this.authenticated = false;
+        if (typeof(Storage) !== 'undefined') {
+            const token = sessionStorage.getItem('SharedSheets_Token');
+            setAuthenticationToken(token);
+            this.authenticated = true;
+        } else {
+            alert('Ihr Browser ist veraltet!\nBitte verwenden Sie einen moderneren Browser, um die Funktionalität der Website zu gewährleisten!');
+            this.authenticated = false;
+        }
     }
 
     async register(cb, username, password, email) {

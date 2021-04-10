@@ -1,7 +1,7 @@
-const Text = () => {
+const Text = ({ content }) => {
     return (
         <div>
-            
+            <p>{ content }</p>
         </div>
     )
 }
