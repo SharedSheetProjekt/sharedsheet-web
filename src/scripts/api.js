@@ -26,9 +26,9 @@ export const api_login = async (username, password) => {
         return token;
     } catch (error) {
         console.log(error);
-        if (error.response.data.status === 'error') {
+        /*if (error.response.data.status === 'error') {
             console.log(error.response.data.errors);
-        }
+        }*/
     }
 }
 
@@ -41,9 +41,9 @@ export const api_register = async (username, password, email, device_name, secre
         return token;
     } catch (error) {
         console.log(error);
-        if (error.response.data.status === 'error') {
+        /*if (error.response.data.status === 'error') {
             console.log(error.response.data.errors);
-        }
+        }*/
     }
 }
 
@@ -52,14 +52,14 @@ export const api_logout = async () => {
     try {
         const response = await request('/users/logout/web', null, 'GET');
         console.log(response);
-        const status = (response.status === 200);
+        const status = (response.status === 204);
         if (status) axios.defaults.headers.common['Authorization'] = null;
         return (status);
     } catch (error) {
         console.log(error);
-        if (error.response.data.status === 'error') {
+        /*if (error.response.data.status === 'error') {
             console.log(error.response.data.errors);
-        }
+        }*/
     }
 }
 
@@ -81,4 +81,14 @@ export const api_load_sheet_by_id = async (id) => {
     } catch (error) {
         console.log(error);
     }    
+}
+
+export const api_create_new_sheet = async (title, description, due) => {
+    console.log('api_create_new_sheet');
+    try {
+        const response = await request('/sheets', {title: title, description: description, due: due}, 'POST');
+        return response.data.id;
+    } catch (error) {
+        console.log(error);
+    }
 }

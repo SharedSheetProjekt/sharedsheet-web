@@ -103,12 +103,12 @@ const Register = () => {
                 Sie besitzen bereits ein Konto? <Link to="/login">Login</Link>
             </p>
 
-            <ResponseInfo isValid={ validUsername } nonValidOuput="Fehlender Benutzername!" onlyNonValid={ true } />
-            <ResponseInfo isValid={ validEMail } nonValidOuput="Fehlende EMail-Adresse!" onlyNonValid={ true } />
-            <ResponseInfo isValid={ validPassword } nonValidOuput="Passwort muss mind. 8 Zeichen lang sein!" onlyNonValid={ true } />
-            <ResponseInfo isValid={ validRepeatedPassword } nonValidOuput="Wiederholtes Passwort stimmt mit Passwort nicht überein!" onlyNonValid={ true } />
+            <ResponseInfo isValid={ validUsername } nonValidOutput="Fehlender Benutzername!" onlyNonValid={ true } />
+            <ResponseInfo isValid={ validEMail } nonValidOutput="Fehlende EMail-Adresse!" onlyNonValid={ true } />
+            <ResponseInfo isValid={ validPassword } nonValidOutput="Passwort muss mind. 8 Zeichen lang sein!" onlyNonValid={ true } />
+            <ResponseInfo isValid={ validRepeatedPassword } nonValidOutput="Wiederholtes Passwort stimmt mit Passwort nicht überein!" onlyNonValid={ true } />
 
-            <ResponseInfo isValid={ validLogin } validOuput="Registrierung erfolgreich!" nonValidOuput="Registrierung fehlgeschlagen!" onlyNonValid={ false } />
+            <ResponseInfo isValid={ validLogin } validOutput="Registrierung erfolgreich!" nonValidOutput="Registrierung fehlgeschlagen!" onlyNonValid={ false } />
 
             <Loader isLoading={ isLoading } />
         </div>

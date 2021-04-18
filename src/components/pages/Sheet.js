@@ -9,6 +9,7 @@ import Upload from "../widgets/Upload";
 
 const Sheet = () => {
     const [sheet, setSheet] = useState({});
+    const [editMode, setEditMode] = useState(false);
 
     let { sheetID } = useParams();
 
@@ -23,11 +24,24 @@ const Sheet = () => {
     //else {
     return (
         <div>
-            <h1>{sheet.title}</h1>
-            <p style={{ marginTop: '-1.8rem' }}>{sheet.description}</p>
-            {<pre>Erstellt: {(sheet.created_at ? sheet.created_at.substr(0,10) : '')}   Bearbeitet: {(sheet.updated_at ? sheet.updated_at.substr(0,10) : '')}</pre>}
+            <table width="100%">
+                <tbody>
+                <tr>
+                    <td>
+                        <h1>{sheet.title}</h1>
+                        <p style={{ marginTop: '-1.8rem' }}>{sheet.description}</p>
+                    </td>
+                    <td width="175px" style={{ textAlign: 'right' }}>
+                        <button onClick={() => {
+                            setEditMode(!editMode);
+                        }}>{(editMode ? 'Wechsel zum View-Modus' : 'Wechsel zum Edit-Modus')}</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <pre>Erstellt: {(sheet.created_at ? sheet.created_at.substr(0,10) : '')}   Bearbeitet: {(sheet.updated_at ? sheet.updated_at.substr(0,10) : '')}</pre>
             <hr/>
-            <div style={{ color: 'gray', fontStyle: 'italic' }}>
+            <div style={{ color: 'gray', fontStyle: 'italic', overflowX: 'scroll' }}>
                 <p><b>DEBUG-INFORMATIONEN</b><br/>ID: {sheetID}</p>
                 <pre>{`${JSON.stringify(sheet).replace('{', '{\n  ').replace('}', '\n}').replaceAll(',', ',\n  ')}`}</pre>
             </div>

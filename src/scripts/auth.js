@@ -4,8 +4,14 @@ class Auth {
     constructor () {
         if (typeof(Storage) !== 'undefined') {
             const token = sessionStorage.getItem('SharedSheets_Token');
-            setAuthenticationToken(token);
-            this.authenticated = true;
+            if (token !== null && token !== undefined) {
+                setAuthenticationToken(token);
+                this.authenticated = true;
+            }
+            else
+            {
+                this.authenticated = false;
+            }
         } else {
             alert('Ihr Browser ist veraltet!\nBitte verwenden Sie einen moderneren Browser, um die Funktionalität der Website zu gewährleisten!');
             this.authenticated = false;

@@ -64,7 +64,7 @@ const Login = () => {
                 Neu bei SharedSheets? <Link to="/register">Registrieren</Link>
             </p>
 
-            <ResponseInfo isValid={ validLogin } validOuput="Anmeldung erfolgreich!" nonValidOuput="Anmeldung fehlgeschlagen!" onlyNonValid={ false } />
+            <ResponseInfo isValid={ validLogin } validOutput="Anmeldung erfolgreich!" nonValidOutput="Anmeldung fehlgeschlagen!" onlyNonValid={ false } />
             
             <Loader isLoading={ isLoading } />
         </div>
