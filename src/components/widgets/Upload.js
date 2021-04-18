@@ -1,9 +1,11 @@
+import WidgetScaffold from "./WidgetScaffold"
+
 const Upload = ({ hint, fileTypes, maxFileSize }) => {
     return (
-        <div>
+        <WidgetScaffold>
             <p>{ hint }</p>
             <input type="file" accept={ fileTypes } />
-        </div>
+        </WidgetScaffold>
     )
 }
 

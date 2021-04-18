@@ -6,6 +6,7 @@ import Text from "../widgets/Text";
 import Image from "../widgets/Image";
 import TextInput from "../widgets/TextInput";
 import Upload from "../widgets/Upload";
+import EditBar from "../structures/EditBar";
 
 const Sheet = () => {
     const [sheet, setSheet] = useState({});
@@ -64,7 +65,8 @@ const Sheet = () => {
                         return null;
                         break;
                 }
-            }) : null}      
+            }) : null}
+            <EditBar isVisible={ editMode } />   
         </div>
     )//}
 }

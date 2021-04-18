@@ -1,8 +1,10 @@
+import WidgetScaffold from "./WidgetScaffold"
+
 const Text = ({ content }) => {
     return (
-        <div>
+        <WidgetScaffold>
             <p>{ content }</p>
-        </div>
+        </WidgetScaffold>
     )
 }
 

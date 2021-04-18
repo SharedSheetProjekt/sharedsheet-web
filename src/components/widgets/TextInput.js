@@ -1,8 +1,10 @@
+import WidgetScaffold from "./WidgetScaffold"
+
 const TextInput = ({ type, placeholder }) => {
     return (
-        <div>
+        <WidgetScaffold>
             <input type={ type } placeholder={ placeholder } />
-        </div>
+        </WidgetScaffold>
     )
 }
 
