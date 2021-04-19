@@ -1,8 +1,8 @@
 import WidgetScaffold from "./WidgetScaffold"
 
-const TextInput = ({ type, placeholder }) => {
+const TextInput = ({ widgetID, type, placeholder }) => {
     return (
-        <WidgetScaffold>
+        <WidgetScaffold widgetID={ widgetID }>
             <input type={ type } placeholder={ placeholder } />
         </WidgetScaffold>
     )

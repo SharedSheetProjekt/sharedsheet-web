@@ -1,8 +1,8 @@
 import WidgetScaffold from "./WidgetScaffold"
 
-const Text = ({ content }) => {
+const Text = ({ widgetID, content }) => {
     return (
-        <WidgetScaffold>
+        <WidgetScaffold widgetID={ widgetID }>
             <p>{ content }</p>
         </WidgetScaffold>
     )

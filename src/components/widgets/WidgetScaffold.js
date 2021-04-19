@@ -1,4 +1,4 @@
-const WidgetScaffold = ({ children }) => {
+const WidgetScaffold = ({ widgetID, children }) => {
     const editBar = document.getElementById('editbar');
 
     const getCoords = (elem) => {
@@ -17,6 +17,7 @@ const WidgetScaffold = ({ children }) => {
         editBar.style.top = coordinates.bottom + 'px';
         editBar.style.left = coordinates.left + 'px';
         editBar.style.display = 'block';
+        editBar.setAttribute('data-focused-widget', widgetID.toString());
     }
 
     const hideEditBar = () => {

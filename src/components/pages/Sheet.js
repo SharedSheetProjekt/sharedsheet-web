@@ -42,24 +42,24 @@ const Sheet = () => {
             </table>
             <pre>Erstellt: {(sheet.created_at ? sheet.created_at.substr(0,10) : '')}   Bearbeitet: {(sheet.updated_at ? sheet.updated_at.substr(0,10) : '')}</pre>
             <hr/>
-            <div style={{ color: 'gray', fontStyle: 'italic', overflowX: 'scroll' }}>
+            {/*<div style={{ color: 'gray', fontStyle: 'italic', overflowX: 'scroll' }}>
                 <p><b>DEBUG-INFORMATIONEN</b><br/>ID: {sheetID}</p>
                 <pre>{`${JSON.stringify(sheet).replace('{', '{\n  ').replace('}', '\n}').replaceAll(',', ',\n  ')}`}</pre>
-            </div>
+            </div>*/}
             {sheet.widgets ? sheet.widgets.map((widget) => {
                 const content = JSON.parse(widget.content);
                 switch (widget.type) {
                     case 'TextWidget':
-                        return <Text key={ widget.id } content={ content.content } />;
+                        return <Text widgetID={ widget.id } key={ widget.id } content={ content.content } />;
                         break;
                     case 'ImageWidget':
-                        return <Image key={ widget.id } src={ content.src } alt={ content.alt } />;
+                        return <Image widgetID={ widget.id } key={ widget.id } src={ content.src } alt={ content.alt } />;
                         break;
                     case 'TextInputWidget':
-                        return <TextInput key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } />;
+                        return <TextInput widgetID={ widget.id } key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } />;
                         break;
                     case 'UploadWidget':
-                        return <Upload key={ widget.id } hint={ content.hint } fileTypes={ content.fileTypes } maxFileSize={ content.size } />;
+                        return <Upload widgetID={ widget.id } key={ widget.id } hint={ content.hint } fileTypes={ content.fileTypes } maxFileSize={ content.size } />;
                         break;
                     default:
                         return null;

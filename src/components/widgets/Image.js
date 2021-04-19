@@ -1,8 +1,8 @@
 import WidgetScaffold from "./WidgetScaffold"
 
-const Image = ({ src, alt }) => {
+const Image = ({ widgetID, src, alt }) => {
     return (
-        <WidgetScaffold>
+        <WidgetScaffold widgetID={ widgetID }>
             <img src={ src } alt={ alt } style={{ maxWidth: '100%' }} />
         </WidgetScaffold>
     )

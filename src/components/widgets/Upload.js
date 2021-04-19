@@ -1,8 +1,8 @@
 import WidgetScaffold from "./WidgetScaffold"
 
-const Upload = ({ hint, fileTypes, maxFileSize }) => {
+const Upload = ({ widgetID, hint, fileTypes, maxFileSize }) => {
     return (
-        <WidgetScaffold>
+        <WidgetScaffold widgetID={ widgetID }>
             <p>{ hint }</p>
             <input type="file" accept={ fileTypes } />
         </WidgetScaffold>
