@@ -19,6 +19,11 @@ const Sheet = () => {
         setSheet(sheet);
     }, []);
 
+    const deleteWidget = (widgetId) => {
+        setSheet( {...sheet, widgets: sheet.widgets.filter(widget => widget.id !== widgetId)} );
+    }
+    
+
     /*if (sheet === undefined || sheet === null) {
         return null;
     }*/
@@ -66,7 +71,7 @@ const Sheet = () => {
                         break;
                 }
             }) : null}
-            <EditBar isVisible={ editMode } />   
+            <EditBar deleteWidgetCb={ deleteWidget } isVisible={ editMode } />   
         </div>
     )//}
 }

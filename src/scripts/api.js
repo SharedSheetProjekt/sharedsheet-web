@@ -4,10 +4,23 @@ axios.defaults.timeout = 10000;
 axios.defaults.headers.common['Access-Control-Allow-Origin'] = '*';
 
 const request = async (url, params, method) => {
-    if (method === 'GET') {
-        return await axios.get(url, null, {params: params});
-    } else {
-        return await axios.post(url, null, {params: params});
+    switch (method) {
+        case 'GET':
+            return await axios.get(url, null, {params: params});
+            break;
+        case 'POST':
+            return await axios.post(url, null, {params: params});
+            break;
+        case 'PUT':
+            return await axios.put(url, null, {params: params});
+            break;
+        case 'DELETE':
+            return await axios.delete(url, null, {params: params});
+            break;
+    
+        default:
+            return await axios.post(url, null, {params: params});
+            break;
     }
 }
 
@@ -92,3 +105,15 @@ export const api_create_new_sheet = async (title, description, due) => {
         console.log(error);
     }
 }
+
+export const api_delete_widget = async (id) => {
+    console.log('api_delete_widget');
+    try {
+        const response = await request(`/widgets/${id}`, null, 'DELETE');
+        const status = (response.status === 204);
+        return status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+

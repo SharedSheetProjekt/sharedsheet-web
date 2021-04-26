@@ -1,6 +1,7 @@
+import { api_delete_widget } from '../../scripts/api';
 import '../../CSS/EditBar.css';
 
-const EditBar = ({ isVisible }) => {
+const EditBar = ({ deleteWidgetCb, isVisible }) => {
     const editWidget = (e) => {
         alert(`Edit: ${e.target.parentElement.parentElement.getAttribute('data-focused-widget')}`);
     }
@@ -9,8 +10,19 @@ const EditBar = ({ isVisible }) => {
         alert(`Rearrange: ${e.target.parentElement.parentElement.getAttribute('data-focused-widget')}`);
     }
     
-    const deleteWidget = (e) => {
-        alert(`Delete: ${e.target.parentElement.parentElement.getAttribute('data-focused-widget')}`);
+    const deleteWidget = async (e) => {
+        //alert(`Delete: ${e.target.parentElement.parentElement.getAttribute('data-focused-widget')}`);
+        const editbar = e.target.parentElement.parentElement;
+        const widgetId = parseInt(editbar.getAttribute('data-focused-widget'));
+        if (widgetId) {
+            //editbar.setAttribute('data-focused-widget', '');
+            editbar.classList.add('hide');
+            if (await api_delete_widget(widgetId)) {
+                editbar.classList.remove('hide');
+                deleteWidgetCb(widgetId);
+            }
+            editbar.classList.remove('hide');
+        }
     }
 
     return (
@@ -18,8 +30,7 @@ const EditBar = ({ isVisible }) => {
             <div>
                 <button onClick={ editWidget }>Edit &#9998;</button>
                 <button onClick={ rearrangeWidget }>Rearrange &#8645;</button>
-                <button onClick={ deleteWidget } class="red">Delete &#128465;</button>
-                {/*e.target.parentElement.parentElement.getAttribute('data-focused-widget')*/}
+                <button onClick={ deleteWidget } className="red">Delete &#128465;</button>
             </div>
         </div>
     )
