@@ -7,6 +7,7 @@ import Image from "../widgets/Image";
 import TextInput from "../widgets/TextInput";
 import Upload from "../widgets/Upload";
 import EditBar from "../structures/EditBar";
+import ResponseInfo from "../structures/ResponseInfo";
 
 const Sheet = () => {
     const [sheet, setSheet] = useState({});
@@ -24,10 +25,10 @@ const Sheet = () => {
     }
     
 
-    /*if (sheet === undefined || sheet === null) {
-        return null;
-    }*/
-    //else {
+    if (sheet === undefined || sheet === null) {
+        return <ResponseInfo isValid={false} nonValidOutput="Sheet konnte nicht geladen werden oder existiert nicht!" va onlyNonValid={true} />;
+    }
+    else {
     return (
         <div>
             <table width="100%">
@@ -73,7 +74,7 @@ const Sheet = () => {
             }) : null}
             <EditBar deleteWidgetCb={ deleteWidget } isVisible={ editMode } />   
         </div>
-    )//}
+    )}
 }
 
 export default Sheet

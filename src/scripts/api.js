@@ -106,6 +106,17 @@ export const api_create_new_sheet = async (title, description, due) => {
     }
 }
 
+export const api_delete_sheet = async (id) => {
+    console.log('api_delete_sheet');
+    try {
+        const response = await request(`/sheets/${id}`, null, 'DELETE');
+        const status = (response.status === 204);
+        return status;
+    } catch (error) {
+        //console.log(error);
+    }
+}
+
 export const api_delete_widget = async (id) => {
     console.log('api_delete_widget');
     try {

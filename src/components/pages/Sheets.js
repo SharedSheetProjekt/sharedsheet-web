@@ -10,7 +10,8 @@ import MarkdownTest from "./MarkdownTest";
 import Sheet from './Sheet';
 import SheetCreator from './SheetCreator'
 import Loader from '../structures/Loader';
-import { api_load_available_sheets } from "../../scripts/api";
+import { api_load_available_sheets, api_delete_sheet } from "../../scripts/api";
+import WidgetCreator from "./WidgetCreator";
 
 const Sheets = () => {
 
@@ -19,6 +20,14 @@ const Sheets = () => {
 
     const [availableSheets, setAvailableSheets] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    const deleteSheet = async (sheetId) => {
+        if (await api_delete_sheet(sheetId))
+        {
+            setAvailableSheets( availableSheets.filter(sheet => sheet.id !== sheetId) );
+        }
+    }
+    
     
     const fakeLoad = () => {
         setTimeout(() => {setLoading(false);}, 2000);
@@ -42,7 +51,10 @@ const Sheets = () => {
                     <ul>
                         {
                             (availableSheets ? availableSheets.map((sheet) => {
-                                return <li key={sheet.id}><Link to={'/sheets/' + sheet.id} key={sheet.id}>{sheet.title}</Link></li>;
+                                return <li key={sheet.id} style={{ margin: '1rem 0' }}>
+                                            <Link to={'/sheets/' + sheet.id} key={sheet.id}>{sheet.title}</Link>
+                                            <button onClick={ () => {deleteSheet(sheet.id)} } style={{ marginLeft: '1rem' }}>&#128465;</button>
+                                        </li>;
                             }) : null)
                         }
                     </ul>
