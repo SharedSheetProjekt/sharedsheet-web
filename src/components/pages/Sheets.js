@@ -66,6 +66,9 @@ const Sheets = () => {
                 <Route exact path={`${path}/new`}>
                     <SheetCreator />
                 </Route>
+                <Route exact path={`${path}/:sheetID/new`}>
+                    <WidgetCreator />
+                </Route>
                 <Route exact path={`${path}/:sheetID`}>
                     <Sheet />
                 </Route>
