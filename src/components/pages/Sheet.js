@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { api_load_sheet_by_id } from "../../scripts/api";
 
 import Text from "../widgets/Text";
@@ -14,6 +14,7 @@ const Sheet = () => {
     const [editMode, setEditMode] = useState(false);
 
     let { sheetID } = useParams();
+    let history = useHistory();
 
     useEffect(async () => {
         const sheet = await api_load_sheet_by_id(sheetID);
@@ -38,10 +39,14 @@ const Sheet = () => {
                         <h1>{sheet.title}</h1>
                         <p style={{ marginTop: '-1.8rem' }}>{sheet.description}</p>
                     </td>
-                    <td width="175px" style={{ textAlign: 'right' }}>
-                        <button onClick={() => {
+                    <td width="80px" style={{ textAlign: 'right' }}>
+                        <button style={{ width: '35px' }} title="Neues Widget hinzufügen" onClick={() => {
+                            history.push(`/sheets/${sheetID}/new`);
+                        }}>➕</button>
+                        <button style={{ width: '35px' }} onClick={() => {
                             setEditMode(!editMode);
-                        }}>{(editMode ? 'Wechsel zum View-Modus' : 'Wechsel zum Edit-Modus')}</button>
+                        }} title={(editMode ? "Wechsel zum View-Modus" : "Wechsel zum Edit-Modus")}
+                        >{(editMode ? '👁' : '✎')}</button>
                     </td>
                 </tr>
                 </tbody>

@@ -117,6 +117,17 @@ export const api_delete_sheet = async (id) => {
     }
 }
 
+export const api_create_new_widget = async (sheetID, widgetObj) => {
+    console.log('api_create_new_widget');
+    try {
+        const response = await request(`/sheets/${sheetID}/widgets`, widgetObj, 'POST');
+        const status = (response.status === 201);
+        return status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const api_delete_widget = async (id) => {
     console.log('api_delete_widget');
     try {
