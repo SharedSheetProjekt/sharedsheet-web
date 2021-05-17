@@ -9,7 +9,7 @@ const request = async (url, params, method) => {
             return await axios.get(url, null, {params: params});
             break;
         case 'POST':
-            return await axios.post(url, null, {params: params});
+            return await axios.post(url, params, null);
             break;
         case 'PUT':
             return await axios.put(url, null, {params: params});
@@ -122,6 +122,17 @@ export const api_create_new_widget = async (sheetID, widgetObj) => {
     try {
         const response = await request(`/sheets/${sheetID}/widgets`, widgetObj, 'POST');
         const status = (response.status === 201);
+        return status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const api_move_widget = async (widgetID, direction) => {
+    console.log('api_move_widget');
+    try {
+        const response = await request(`/widgets/${widgetID}/move`, {direction: direction}, 'POST');
+        const status = (response.status === 204);
         return status;
     } catch (error) {
         console.log(error);

@@ -16,9 +16,14 @@ const Sheet = () => {
     let { sheetID } = useParams();
     let history = useHistory();
 
-    useEffect(async () => {
+    const loadSheet = async () => {
         const sheet = await api_load_sheet_by_id(sheetID);
         setSheet(sheet);
+    }
+    
+
+    useEffect(async () => {
+        await loadSheet();
     }, []);
 
     const deleteWidget = (widgetId) => {
@@ -77,7 +82,7 @@ const Sheet = () => {
                         break;
                 }
             }) : null}
-            <EditBar deleteWidgetCb={ deleteWidget } isVisible={ editMode } />   
+            <EditBar deleteWidgetCb={ deleteWidget } updateWidgetsCb={ loadSheet } isVisible={ editMode } />   
         </div>
     )}
 }

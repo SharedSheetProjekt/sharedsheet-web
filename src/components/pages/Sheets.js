@@ -12,6 +12,7 @@ import SheetCreator from './SheetCreator'
 import Loader from '../structures/Loader';
 import { api_load_available_sheets, api_delete_sheet } from "../../scripts/api";
 import WidgetCreator from "./WidgetCreator";
+import WidgetEditor from "./WidgetEditor";
 
 const Sheets = () => {
 
@@ -65,6 +66,9 @@ const Sheets = () => {
                 </Route>
                 <Route exact path={`${path}/new`}>
                     <SheetCreator />
+                </Route>
+                <Route exact path={`${path}/:sheetID/edit/:widgetID`}>
+                    <WidgetEditor />
                 </Route>
                 <Route exact path={`${path}/:sheetID/new`}>
                     <WidgetCreator />
