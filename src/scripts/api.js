@@ -106,6 +106,17 @@ export const api_create_new_sheet = async (title, description, due) => {
     }
 }
 
+export const api_load_widget_by_id = async (id) => {
+    console.log('api_load_widget_by_id');
+    try {
+        const response = await request(`/widgets/${id}`, null, 'GET');
+        return response.data;
+    } catch (error) {
+        // TODO: Fix error (code: 405)
+        console.log(error);
+    }    
+}
+
 export const api_delete_sheet = async (id) => {
     console.log('api_delete_sheet');
     try {
@@ -122,6 +133,18 @@ export const api_create_new_widget = async (sheetID, widgetObj) => {
     try {
         const response = await request(`/sheets/${sheetID}/widgets`, widgetObj, 'POST');
         const status = (response.status === 201);
+        return status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const api_update_widget = async (widgetID, widgetObj) => {
+    console.log('api_update_widget');
+    console.table(widgetObj);
+    try {
+        const response = await request(`/widgets/${widgetID}`, widgetObj, 'POST');
+        const status = (response.status === 200);
         return status;
     } catch (error) {
         console.log(error);
