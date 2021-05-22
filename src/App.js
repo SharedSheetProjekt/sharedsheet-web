@@ -1,7 +1,8 @@
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom';
 
 import { ProtectedRoute } from './components/functionality/ProtectedRoute';
@@ -14,7 +15,7 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Sheets from './components/pages/Sheets';
-import Account from './components/pages/Account';
+import Courses from './components/pages/Courses';
 import About from './components/pages/About';
 import NotFound404 from './components/pages/NotFound404';
 
@@ -27,10 +28,11 @@ const App = () => {
           <main id="main">
             <Switch>
               <Route exact path="/about" component={ About } />
-              <ProtectedRoute exact path="/account" component={ Account } />
+              <ProtectedRoute path="/courses" component={ Courses } />
               <ProtectedRoute path="/sheets" component={ Sheets } />
               <Route exact path="/register" component={ Register } />
               <Route exact path="/login"component={ Login } />
+              <Redirect from="/sharedsheet-web" to="/" />
               <Route exact path="/" component={ Home } />
               <Route path="*" component={ NotFound404 } />
             </Switch>

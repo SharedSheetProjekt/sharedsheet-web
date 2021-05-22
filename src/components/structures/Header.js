@@ -19,7 +19,7 @@ const Header = () => {
     let history = useHistory();
 
     return (
-        <header id="main-header" style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <header id="main-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div style={{  }}>
                 <ul>
                     <li>
@@ -36,7 +36,7 @@ const Header = () => {
                     </li>
                     <li>
                         {/*<Link to="/account" className="nav-link">Account</Link>*/}
-                        <NavLink to="/account" exactMatch={true} label="Account" />
+                        <NavLink to="/courses" exactMatch={true} label="Courses" />
                     </li>
                     <li>
                         {/*<Link to="/about" className="nav-link">About</Link>*/}
@@ -45,14 +45,14 @@ const Header = () => {
                 </ul>
             </div>
             <div style={{ padding: '18px' }}>
-                Benutzername <img src="" alt="ProfilePic"/>
+                Benutzername
             </div>
-            <button onClick={ () => {
+            <button style={{ height: '30px', marginRight: '20px' }} onClick={ () => {
                 auth.logout(() => {
                     console.log('Logout!');
                     history.push('/');
                 });
-            } }>Logout</button>
+            } }><span className="material-icons">logout</span></button>
         </header>
     )
 }

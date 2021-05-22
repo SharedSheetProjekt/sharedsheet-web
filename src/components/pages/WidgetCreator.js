@@ -124,7 +124,7 @@ const WidgetCreator = () => {
 
             <button onClick={() => {
                 history.push(`/sheets/${sheetID}`);
-            }}>Zurück zum Sheet</button>
+            }}><span className="material-icons">arrow_back_ios</span> Zurück zum Sheet</button>
 
             <br/><br/>
 

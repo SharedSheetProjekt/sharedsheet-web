@@ -21,6 +21,8 @@
 }
 
 #editbar button {
+    display: flex;
+    align-items: center;
     height: 1.8rem;
     margin: 0.2rem 0.5rem;
     color: grey;

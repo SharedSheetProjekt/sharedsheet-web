@@ -18,6 +18,7 @@ const Sheet = () => {
 
     const loadSheet = async () => {
         const sheet = await api_load_sheet_by_id(sheetID);
+        console.table(sheet.widgets);
         setSheet(sheet);
     }
     
@@ -42,16 +43,16 @@ const Sheet = () => {
                 <tr>
                     <td>
                         <h1>{sheet.title}</h1>
-                        <p style={{ marginTop: '-1.8rem' }}>{sheet.description}</p>
+                        <p style={{ marginTop: '-1.5rem' }}>{sheet.description}</p>
                     </td>
                     <td width="80px" style={{ textAlign: 'right' }}>
                         <button style={{ width: '35px' }} title="Neues Widget hinzufügen" onClick={() => {
                             history.push(`/sheets/${sheetID}/new`);
-                        }}>➕</button>
+                        }}><span className="material-icons">add_box</span></button>
                         <button style={{ width: '35px' }} onClick={() => {
                             setEditMode(!editMode);
                         }} title={(editMode ? "Wechsel zum View-Modus" : "Wechsel zum Edit-Modus")}
-                        >{(editMode ? '👁' : '✎')}</button>
+                        >{(editMode ? <span className="material-icons">visibility</span> : <span className="material-icons">edit</span>)}</button>
                     </td>
                 </tr>
                 </tbody>

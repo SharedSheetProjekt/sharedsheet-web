@@ -46,15 +46,15 @@ const Sheets = () => {
             <Switch>
                 <Route exact path={path}>
                     <h1>Sheets</h1>
-                    <button onClick={() => {
+                    <button className="icon-desc" onClick={() => {
                         history.push('/sheets/new');
-                    }}>Neues Sheet erstellen</button>
+                    }}><span className="material-icons">note_add</span>Neues Sheet erstellen</button>
                     <ul>
                         {
                             (availableSheets ? availableSheets.map((sheet) => {
                                 return <li key={sheet.id} style={{ margin: '1rem 0' }}>
                                             <Link to={'/sheets/' + sheet.id} key={sheet.id}>{sheet.title}</Link>
-                                            <button onClick={ () => {deleteSheet(sheet.id)} } style={{ marginLeft: '1rem' }}>&#128465;</button>
+                                            <button onClick={ () => {deleteSheet(sheet.id)} } style={{ marginLeft: '1rem' }}><span className="material-icons">delete</span></button>
                                         </li>;
                             }) : null)
                         }

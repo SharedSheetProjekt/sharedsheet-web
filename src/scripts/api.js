@@ -28,7 +28,9 @@ export const setAuthenticationToken = (token) => {
     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 }
 
-
+/**************************************************************************
+                            USER AUTHENTICATION API
+ **************************************************************************/
 
 export const api_login = async (username, password) => {
     console.log('api_login...');
@@ -76,6 +78,10 @@ export const api_logout = async () => {
     }
 }
 
+/**************************************************************************
+                                WIDGET API
+ **************************************************************************/
+
 export const api_load_available_sheets = async () => {
     console.log('api_load_available_sheets');
     try {
@@ -106,17 +112,6 @@ export const api_create_new_sheet = async (title, description, due) => {
     }
 }
 
-export const api_load_widget_by_id = async (id) => {
-    console.log('api_load_widget_by_id');
-    try {
-        const response = await request(`/widgets/${id}`, null, 'GET');
-        return response.data;
-    } catch (error) {
-        // TODO: Fix error (code: 405)
-        console.log(error);
-    }    
-}
-
 export const api_delete_sheet = async (id) => {
     console.log('api_delete_sheet');
     try {
@@ -127,6 +122,10 @@ export const api_delete_sheet = async (id) => {
         //console.log(error);
     }
 }
+
+/**************************************************************************
+                                WIDGET API
+ **************************************************************************/
 
 export const api_create_new_widget = async (sheetID, widgetObj) => {
     console.log('api_create_new_widget');
@@ -143,7 +142,7 @@ export const api_update_widget = async (widgetID, widgetObj) => {
     console.log('api_update_widget');
     console.table(widgetObj);
     try {
-        const response = await request(`/widgets/${widgetID}`, widgetObj, 'POST');
+        const response = await request(`/widgets/${widgetID}`, widgetObj, 'PUT');
         const status = (response.status === 200);
         return status;
     } catch (error) {
@@ -162,6 +161,17 @@ export const api_move_widget = async (widgetID, direction) => {
     }
 }
 
+export const api_load_widget_by_id = async (id) => {
+    console.log('api_load_widget_by_id');
+    try {
+        const response = await request(`/widgets/${id}`, null, 'GET');
+        return response.data;
+    } catch (error) {
+        // TODO: Fix error (code: 405)
+        console.log(error);
+    }    
+}
+
 export const api_delete_widget = async (id) => {
     console.log('api_delete_widget');
     try {
@@ -173,3 +183,68 @@ export const api_delete_widget = async (id) => {
     }
 }
 
+/**************************************************************************
+                                COURSE API
+ **************************************************************************/
+
+export const api_load_available_courses = async () => {
+    console.log('api_load_available_courses');
+    try {
+        const response = await request('/courses', null, 'GET');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }    
+}
+
+export const api_create_new_course = async (courseName) => {
+    console.log('api_create_new_course');
+    try {
+        const response = await request('/courses', {name: courseName}, 'POST');
+        const status = (response.status === 201);
+        return status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const api_load_course_by_id = async (courseID) => {
+    console.log('api_load_course_by_id');
+    try {
+        const response = await request(`/courses/${courseID}`, null, 'GET');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }    
+}
+
+export const api_delete_course = async (courseID) => {
+    console.log('api_delete_course');
+    try {
+        const response = await request(`/courses/${courseID}`, null, 'DELETE');
+        const status = (response.status === 204);
+        return status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const api_create_new_invite_token = async (courseID) => {
+    console.log('api_create_new_invite_token');
+    try {
+        const response = await request(`/courses/${courseID}/invites`, null, 'POST');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const api_join_course_with_token = async (inviteToken) => {
+    console.log('api_join_course_with_token');
+    try {
+        const response = await request(`/courses/join`, {token: inviteToken}, 'POST');
+        return response.status;
+    } catch (error) {
+        console.log(error);
+    }
+}

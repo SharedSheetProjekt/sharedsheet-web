@@ -9,6 +9,7 @@ const EditBar = ({ deleteWidgetCb, updateWidgetsCb, isVisible }) => {
     const editWidget = (e) => {
         //alert(`Edit: ${e.target.parentElement.parentElement.getAttribute('data-focused-widget')}`);
         const editbar = e.target.parentElement.parentElement;
+        console.log(editbar.getAttribute('data-focused-widget'))
         const widgetId = parseInt(editbar.getAttribute('data-focused-widget'));
 
         history.push(`${url}/edit/${widgetId}`);
@@ -17,6 +18,7 @@ const EditBar = ({ deleteWidgetCb, updateWidgetsCb, isVisible }) => {
     const rearrangeWidget = async (e, move) => {
         //alert(`Rearrange: ${e.target.parentElement.parentElement.getAttribute('data-focused-widget')}`);
         const editbar = e.target.parentElement.parentElement;
+        console.log(editbar.getAttribute('data-focused-widget'))
         const widgetId = parseInt(editbar.getAttribute('data-focused-widget'));
         
         if (await api_move_widget(widgetId, move)) {
@@ -43,11 +45,11 @@ const EditBar = ({ deleteWidgetCb, updateWidgetsCb, isVisible }) => {
     return (
         <div id="editbar" className={ (isVisible ? '' : 'hide') } style={{ position: 'absolute' }}>
             <div>
-                <button onClick={ editWidget }>Edit &#9998;</button>
+                <button onClick={ editWidget } className="icon-desc"><span className="material-icons icon-desc">edit</span> Editieren</button>
                 {/*<button onClick={ rearrangeWidget }>Rearrange &#8645;</button>*/}
-                <button onClick={ async (e) => {rearrangeWidget(e, 'down');} }>&#9660;</button>
-                <button onClick={ async (e) => {rearrangeWidget(e, 'up');} }>&#9650;</button>
-                <button onClick={ deleteWidget } className="red">Delete &#128465;</button>
+                <button onClick={ async (e) => {rearrangeWidget(e, 'down');} }><span className="material-icons">arrow_downward</span></button>
+                <button onClick={ async (e) => {rearrangeWidget(e, 'up');} }><span className="material-icons">arrow_upward</span></button>
+                <button onClick={ deleteWidget } className="red icon-desc"><span className="material-icons">delete</span> Löschen</button>
             </div>
         </div>
     )

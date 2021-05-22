@@ -10,3 +10,22 @@ body {
   background-color: #1B44C1;
   font-family: 'Ubuntu', 'Segoe UI', 'Roboto', 'Oxygen', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 }
+
+.material-icons {
+  font-size: 1rem;
+  pointer-events: none;
+  /* TODO: Fix widget movement */
+}
+
+button.icon-desc span.material-icons {
+  margin-right: 4px;
+}
+
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
+}

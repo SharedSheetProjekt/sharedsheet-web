@@ -50,7 +50,7 @@ const SheetCreator = () => {
 
             <button onClick={() => {
                 history.push('/sheets');
-            }}>Zurück zur Übersicht</button>
+            }}><span className="material-icons">arrow_back_ios</span> Zurück zur Übersicht</button>
 
             <form onSubmit={ handleSubmit }>
                 <p>Titel:</p>
