@@ -9,18 +9,7 @@ const Courses = () => {
     let { path, url } = useRouteMatch();
     let history = useHistory();
 
-    const [availableCourses, setAvailableCourses] = useState([
-        {
-          "id": 0,
-          "name": "string",
-          "members": [
-            {
-              "username": "string",
-              "role": "string"
-            }
-          ]
-        }
-      ]);
+    const [availableCourses, setAvailableCourses] = useState([]);
 
     const deleteCourse = async (courseId) => {
         if (await api_delete_course(courseId))
@@ -31,7 +20,7 @@ const Courses = () => {
 
     useEffect(async () => {
         const courses = await api_load_available_courses();
-        //setAvailableCourses(courses);
+        setAvailableCourses(courses);
     }, []);
 
     const copyCourseInviteToken = async (courseId) => {
@@ -48,7 +37,7 @@ const Courses = () => {
         <div>
             <Switch>
                 <Route exact path={path}>
-                    <h1>Kurse <span style={{ color: 'red' }}>(WIP)</span></h1>
+                    <h1>Kurse</h1>
 
                     <button className="icon-desc" onClick={() => {
                         history.push('/courses/new');
@@ -63,7 +52,7 @@ const Courses = () => {
                         {
                             (availableCourses ? availableCourses.map((course) => {
                                 return <li key={course.id} style={{ margin: '1rem 0' }}>
-                                            <Link to={'/course/' + course.id} key={course.id}>{course.name}</Link>
+                                            <Link to={'/courses/' + course.id} key={course.id}>{course.name}</Link>
                                             <button title="Einladungs-Token kopieren" onClick={ () => {copyCourseInviteToken(course.id)} } style={{ marginLeft: '1rem' }}><span className="material-icons">person_add</span></button>
                                             <button title="Kurs löschen" onClick={ () => {deleteCourse(course.id)} } style={{ marginLeft: '1rem' }}><span className="material-icons">delete</span></button>
                                         </li>;
@@ -77,7 +66,7 @@ const Courses = () => {
                 <Route exact path={`${path}/join`}>
                     <CourseJoin />
                 </Route>
-                <Route exact path={`${path}/:courseID`}>
+                <Route exact path={`${path}/:courseId`}>
                     <Course />
                 </Route>
             </Switch>

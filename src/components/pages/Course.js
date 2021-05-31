@@ -21,9 +21,9 @@ const Course = () => {
 
     useEffect(async () => {
         await loadCourse();
-    }, []);
+    }, [courseId]);
 
-    if (!validCourseId) {
+    if (!validCourseId || course === {} || course === undefined || course === null) {
         return <ResponseInfo isValid={ validCourseId } nonValidOutput="Kurs konnte nicht gefunden werden!" onlyNonValid={ true } />;
     } else {
         return (
@@ -35,15 +35,13 @@ const Course = () => {
                 }}><span className="material-icons">arrow_back_ios</span> Zurück zur Übersicht</button>
                 <br/>
 
-                <p>Kursname: {course.name}</p>
-                <p>
-                    Mitglieder: <br/>
-                    <ul>
-                        {course.members.map((member) => {
-                            return <li>{member.username} <em>({member.role})</em></li>
-                        })}
-                    </ul>
-                </p>               
+                <p>Kursname: {course?.name}</p>
+                <p>Mitglieder: </p>
+                <ul>
+                    {course?.members?.map((member) => {
+                        return <li key={member.username}>{member.username} <em>({member.role})</em></li>
+                    })}
+                </ul>               
             </div>
         )
     }

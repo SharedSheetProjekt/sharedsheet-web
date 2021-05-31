@@ -233,7 +233,7 @@ export const api_create_new_invite_token = async (courseID) => {
     console.log('api_create_new_invite_token');
     try {
         const response = await request(`/courses/${courseID}/invites`, null, 'POST');
-        return response.data;
+        return response.data?.token;
     } catch (error) {
         console.log(error);
     }
@@ -247,4 +247,57 @@ export const api_join_course_with_token = async (inviteToken) => {
     } catch (error) {
         console.log(error);
     }
+}
+
+/**************************************************************************
+                                SOLUTION API
+ **************************************************************************/
+
+export const api_load_solutions_by_widget_id = async (widgetId) => {
+    console.log('api_load_solutions_by_widget_id');
+    try {
+        const response = await request(`/widgets/${widgetId}/solutions`, null, 'GET');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }    
+}
+
+export const api_create_new_solution = async (widgetId, type, contentObj) => {
+    console.log('api_create_new_solution');
+    try {
+        const response = await request(`/widgets/${widgetId}/solutions`, {type: type, content: contentObj}, 'POST');
+        const status = (response.status === 201);
+        return status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const api_upload_new_solution = async (widgetId, comment, binaryString) => {
+    console.log('api_upload_new_solution');
+    try {
+        const response = await request(`/widgets/${widgetId}/solutions`, {comment: comment, file: binaryString}, 'POST');
+        const status = (response.status === 201);
+        return status;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export const api_download_solution_by_solution_id = async (solutionId) => {
+    console.log('api_download_solution_by_solution_id');
+    try {
+        /*const response = await request(`/solutions/${solutionId}/download`, null, 'GET').data.blob();
+        const url = window.URL.createObjectURL(new Blob([response]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download');
+        document.body.appendChild(link);
+        link.click();
+        link.parentNode.removeChild(link);*/
+        return true;
+    } catch (error) {
+        console.log(error);
+    }    
 }
