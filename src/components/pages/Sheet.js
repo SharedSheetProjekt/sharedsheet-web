@@ -8,6 +8,7 @@ import TextInput from "../widgets/TextInput";
 import Upload from "../widgets/Upload";
 import EditBar from "../structures/EditBar";
 import ResponseInfo from "../structures/ResponseInfo";
+import Moment from 'react-moment';
 
 const Sheet = () => {
     const [sheet, setSheet] = useState({});
@@ -18,8 +19,7 @@ const Sheet = () => {
 
     const loadSheet = async () => {
         const sheet = await api_load_sheet_by_id(sheetID);
-        console.table(sheet.widgets);
-        setSheet(sheet);
+        if (sheet) setSheet(sheet);
     }
     
 
@@ -57,7 +57,7 @@ const Sheet = () => {
                 </tr>
                 </tbody>
             </table>
-            <pre>Erstellt: {(sheet.created_at ? sheet.created_at.substr(0,10) : '')}   Bearbeitet: {(sheet.updated_at ? sheet.updated_at.substr(0,10) : '')}</pre>
+            <pre>Erstellt: <Moment date={sheet.created_at} format="DD.MM.YYYY HH:mm" />   Bearbeitet: <Moment date={sheet.updated_at} format="DD.MM.YYYY HH:mm" /></pre>
             <hr/>
             {/*<div style={{ color: 'gray', fontStyle: 'italic', overflowX: 'scroll' }}>
                 <p><b>DEBUG-INFORMATIONEN</b><br/>ID: {sheetID}</p>
@@ -70,10 +70,10 @@ const Sheet = () => {
                         return <Text widgetID={ widget.id } key={ widget.id } content={ content.content } />;
                         break;
                     case 'ImageWidget':
-                        return <Image widgetID={ widget.id } key={ widget.id } src={ content.src } alt={ content.alt } />;
+                        return <Image widgetID={ widget.id } key={ widget.id } src={ content.src } alt={ content.alt } title={ widget.title } />;
                         break;
                     case 'TextInputWidget':
-                        return <TextInput widgetID={ widget.id } key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } />;
+                        return <TextInput widgetID={ widget.id } key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } title={ widget.title } solutions={ widget.solutions } />;
                         break;
                     case 'UploadWidget':
                         return <Upload widgetID={ widget.id } key={ widget.id } hint={ content.hint } fileTypes={ content.fileTypes } maxFileSize={ content.size } />;
