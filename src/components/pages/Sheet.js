@@ -76,7 +76,7 @@ const Sheet = () => {
                         return <TextInput widgetID={ widget.id } key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } title={ widget.title } solutions={ widget.solutions } />;
                         break;
                     case 'UploadWidget':
-                        return <Upload widgetID={ widget.id } key={ widget.id } hint={ content.hint } fileTypes={ content.fileTypes } maxFileSize={ content.size } />;
+                        return <Upload widgetID={ widget.id } key={ widget.id } hint={ content.hint } fileTypes={ content.filetypes } maxFileSize={ content.size } title={ widget.title } />;
                         break;
                     default:
                         return null;

@@ -301,3 +301,14 @@ export const api_download_solution_by_solution_id = async (solutionId) => {
         console.log(error);
     }    
 }
+
+export const api_delete_solution = async (solutionID) => {
+    console.log('api_delete_solution');
+    try {
+        const response = await request(`/solutions/${solutionID}`, null, 'DELETE');
+        const status = (response.status === 204);
+        return status;
+    } catch (error) {
+        console.log(error);
+    }
+}

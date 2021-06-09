@@ -47,19 +47,23 @@ const WidgetEditor = () => {
                     </>);
 
                 case 'UploadWidget':
+                    console.log(widgetContent)
                     return (<>
                         <label htmlFor="hint">Beschreibung</label><br/>
                         <input type="text" name="hint" id="hint" style={{ width: '100%' }} defaultValue={widgetContent.hint} required/>
                         <br/><br/>
-                        <label htmlFor="size">Maximale Dateigröße <span style={{ color: 'red' }}>(WIP)</span></label><br/>
+                        {/*<label htmlFor="size">Maximale Dateigröße <span style={{ color: 'red' }}>(WIP)</span></label><br/>
                         <input type="number" min="1" name="size" id="size" style={{ width: '50px', textAlign: 'right' }} defaultValue={widgetContent.size} required/> MB
-                        <br/><br/>
+                        <br/><br/>*/}
                         <details>
-                            // TODO: defaultValues setzen
-                            <summary>Erlaubte Dateiformate <span style={{ color: 'red' }}>(WIP)</span></summary>
-                            <input type="checkbox" name="format" value="pdf"/><label>.pdf</label><br/>
-                            <input type="checkbox" name="format" value="docx"/><label>.docx</label><br/>
-                            <input type="checkbox" name="format" value="png"/><label>.png</label>
+                            <summary>Erlaubte Dateiformate</summary>
+                            <input type="checkbox" name="format" value="any" defaultChecked={widgetContent.filetypes.includes('*') ? true : false}/><label>.*</label><br/>
+                            <input type="checkbox" name="format" value="txt" defaultChecked={widgetContent.filetypes.includes('.txt') ? true : false}/><label>.txt</label><br/>
+                            <input type="checkbox" name="format" value="pdf" defaultChecked={widgetContent.filetypes.includes('.pdf') ? true : false}/><label>.pdf</label><br/>
+                            <input type="checkbox" name="format" value="docx" defaultChecked={widgetContent.filetypes.includes('.docx') ? true : false}/><label>.docx</label><br/>
+                            <input type="checkbox" name="format" value="pptx" defaultChecked={widgetContent.filetypes.includes('.pptx') ? true : false}/><label>.pptx</label><br />
+                            <input type="checkbox" name="format" value="xlsx" defaultChecked={widgetContent.filetypes.includes('.xlsx') ? true : false}/><label>.xlsx</label><br/>
+                            <input type="checkbox" name="format" value="png/jpg/jpeg" defaultChecked={widgetContent.filetypes.includes('.png,.jpg,.jpeg') ? true : false}/><label>.png / .jpg / .jpeg</label>
                         </details>
                     </>);
             
@@ -93,9 +97,40 @@ const WidgetEditor = () => {
                     break;
                 case 'UploadWidget':
                     const hint = document.getElementById('hint').value;
-                    //const filetypes = document.getElementById('filetypes').value;
-                    if (hint/* && fileTypes*/) {widgetObj = {content: JSON.stringify({hint: hint, filetypes: '.pdf'})};}
-                    // TODO: Manage file type selection
+                    const fileTypes = [];
+                    let checkedFileTypeBoxes = document.querySelectorAll('input[type="checkbox"][name="format"]:checked');
+                    for (const checkbox of checkedFileTypeBoxes) {
+                        switch (checkbox.value) {
+                            case 'any':
+                                fileTypes.push('*');
+                                break;
+                            case 'txt':
+                                fileTypes.push('.txt');
+                                break;
+                            case 'pdf':
+                                fileTypes.push('.pdf');
+                                break;
+                            case 'docx':
+                                fileTypes.push('.docx');
+                                break;
+                            case 'pptx':
+                                fileTypes.push('.pptx');
+                                break;
+                            case 'xlsx':
+                                fileTypes.push('.xlsx');
+                                break;
+                            case 'png/jpg/jpeg':
+                                fileTypes.push('.png', '.jpg', '.jpeg');
+                                break;
+                        
+                            default:
+                                break;
+                        }
+                    }
+
+                    const fileTypesString = fileTypes.join();
+                    
+                    if (hint && fileTypes) {widgetObj = {content: JSON.stringify({hint: hint, filetypes: fileTypesString})};}
                     break;
                 default:
                     return null;
