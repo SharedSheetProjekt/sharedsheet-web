@@ -45,7 +45,7 @@ const Sheet = () => {
                         <h1>{sheet.title}</h1>
                         <p style={{ marginTop: '-1.5rem' }}>{sheet.description}</p>
                     </td>
-                    <td width="80px" style={{ textAlign: 'right' }}>
+                    <td width="80px" style={{ textAlign: 'right', display: (sheet?.canEdit ? 'table-cell' : 'none') }}>
                         <button style={{ width: '35px' }} title="Neues Widget hinzufügen" onClick={() => {
                             history.push(`/sheets/${sheetID}/new`);
                         }}><span className="material-icons">add_box</span></button>
@@ -55,9 +55,17 @@ const Sheet = () => {
                         >{(editMode ? <span className="material-icons">visibility</span> : <span className="material-icons">edit</span>)}</button>
                     </td>
                 </tr>
+                <tr>
+                    <td><pre style={{ margin: '0' }}>Erstellt: <Moment date={sheet.created_at} format="DD.MM.YYYY HH:mm" />   Bearbeitet: <Moment date={sheet.updated_at} format="DD.MM.YYYY HH:mm" /></pre></td>
+                    <td width="80px" style={{ textAlign: 'right' }}>
+                        <button className="icon-desc" style={{ whiteSpace: 'nowrap' }} onClick={() => {
+                            history.push(`/sheets/${sheetID}/solutions`);
+                        }} title="Alle Lösungen aller Nutzer anzeigen"
+                        ><span className="material-icons">done_all</span>Alle Lösungen</button>
+                    </td>
+                </tr>
                 </tbody>
             </table>
-            <pre>Erstellt: <Moment date={sheet.created_at} format="DD.MM.YYYY HH:mm" />   Bearbeitet: <Moment date={sheet.updated_at} format="DD.MM.YYYY HH:mm" /></pre>
             <hr/>
             {/*<div style={{ color: 'gray', fontStyle: 'italic', overflowX: 'scroll' }}>
                 <p><b>DEBUG-INFORMATIONEN</b><br/>ID: {sheetID}</p>

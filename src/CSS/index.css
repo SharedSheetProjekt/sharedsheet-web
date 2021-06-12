@@ -1,5 +1,6 @@
 html {
   scroll-behavior: smooth;
+  cursor: default;
 }
 
 body {
@@ -28,4 +29,13 @@ button {
   align-content: center;
   flex-wrap: nowrap;
   flex-direction: row;
+}
+
+summary {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+summary:hover {
+  color: #537CD1;
 }

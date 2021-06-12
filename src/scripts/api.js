@@ -66,7 +66,6 @@ export const api_logout = async () => {
     console.log('api_logout...');
     try {
         const response = await request('/users/logout/web', null, 'GET');
-        console.log(response);
         const status = (response.status === 204);
         if (status) axios.defaults.headers.common['Authorization'] = null;
         return (status);
@@ -79,7 +78,7 @@ export const api_logout = async () => {
 }
 
 /**************************************************************************
-                                WIDGET API
+                                SHEET API
  **************************************************************************/
 
 export const api_load_available_sheets = async () => {
@@ -257,6 +256,16 @@ export const api_load_solutions_by_widget_id = async (widgetId) => {
     console.log('api_load_solutions_by_widget_id');
     try {
         const response = await request(`/widgets/${widgetId}/solutions`, null, 'GET');
+        return response.data;
+    } catch (error) {
+        console.log(error);
+    }    
+}
+
+export const api_load_all_available_solutions_by_sheet_id = async (sheetId) => {
+    console.log('api_load_all_available_solutions_by_sheet_id');
+    try {
+        const response = await request(`/sheets/${sheetId}/solutions`, null, 'GET');
         return response.data;
     } catch (error) {
         console.log(error);

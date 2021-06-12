@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import auth from '../../scripts/auth';
 
@@ -45,6 +45,15 @@ const Login = () => {
             }
         }
     }
+
+    useEffect(() => {
+        return () => {
+            setLoading(false);
+            setUsername('');
+            setPassword('');
+            setValidLogin(null);
+        }
+    }, []);
 
     return (
         <div>

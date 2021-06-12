@@ -13,6 +13,7 @@ import Loader from '../structures/Loader';
 import { api_load_available_sheets, api_delete_sheet } from "../../scripts/api";
 import WidgetCreator from "./WidgetCreator";
 import WidgetEditor from "./WidgetEditor";
+import SolutionViewer from "./SolutionViewer";
 
 const Sheets = () => {
 
@@ -54,7 +55,7 @@ const Sheets = () => {
                             (availableSheets ? availableSheets.map((sheet) => {
                                 return <li key={sheet.id} style={{ margin: '1rem 0' }}>
                                             <Link to={'/sheets/' + sheet.id} key={sheet.id}>{sheet.title}</Link>
-                                            <button onClick={ () => {deleteSheet(sheet.id)} } style={{ marginLeft: '1rem' }}><span className="material-icons">delete</span></button>
+                                            <button onClick={ () => {deleteSheet(sheet.id)} } style={{ marginLeft: '1rem', display: (sheet?.canEdit ? 'inline-flex' : 'none') }}><span className="material-icons">delete</span></button>
                                         </li>;
                             }) : null)
                         }
@@ -72,6 +73,9 @@ const Sheets = () => {
                 </Route>
                 <Route exact path={`${path}/:sheetID/new`}>
                     <WidgetCreator />
+                </Route>
+                <Route exact path={`${path}/:sheetID/solutions`}>
+                    <SolutionViewer />
                 </Route>
                 <Route exact path={`${path}/:sheetID`}>
                     <Sheet />
