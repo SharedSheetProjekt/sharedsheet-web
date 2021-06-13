@@ -44,7 +44,7 @@ const SolutionViewer = () => {
                                                             Lösung vom <Moment date={solution.created_at} format="DD.MM.YYYY HH:mm" />
                                                         </span>
                                                         <br />
-                                                        {(solution?.type === 'text' ? JSON.parse(solution.content)?.text : <FileDownload fileName={ solution?.comment } solutionId={ solution?.id } />)}
+                                                        {(solution?.type === 'text' ? JSON.parse(solution.content)?.text : <FileDownload fileName={ solution?.comment } solutionId={ solution?.id } solutionToken={solution?.public_token} />)}
                                                     </p>
                                                 );
                                             })}

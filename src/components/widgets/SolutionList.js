@@ -27,7 +27,7 @@ const SolutionList = ({ solutions }) => {
                                         <button onClick={ async () => {deleteSolution(solution.id)} } style={{ marginLeft: '1rem' }} title="Lösung löschen"><span className="material-icons">delete</span></button>
                                     </span>
                                     <br />
-                                    {(solution?.type === 'text' ? JSON.parse(solution.content)?.text : <FileDownload fileName={ solution?.comment } solutionId={ solution?.id } />)}
+                                    {(solution?.type === 'text' ? JSON.parse(solution.content)?.text : <FileDownload fileName={ solution?.comment } solutionId={ solution?.id } solutionToken={solution?.public_token} />)}
                                 </li>
                             );
                         }) : null)
