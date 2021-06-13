@@ -32,7 +32,7 @@ const Login = () => {
         if(username !== '' && password !== '') {
             if (
                 await auth.login(() => {
-                    console.log('Logged in!');
+                    //console.log('Logged in!');
                     history.push('/sheets');
                 },
                 username,
@@ -57,10 +57,12 @@ const Login = () => {
 
     return (
         <div>
-            <h1>Login</h1>
+            <h1>SharedSheets</h1>
+            <hr />
+            <h2>Anmeldung</h2>
 
             <form onSubmit={ handleSubmit }>
-                <label htmlFor="username">EMail: </label><br/>
+                <label htmlFor="username">E-Mail: </label><br/>
                 <input type="email" id="username" onChange={ handleUsername } required /><br/>
 
                 <label htmlFor="password">Passwort: </label><br/>
@@ -70,7 +72,7 @@ const Login = () => {
             </form>
 
             <p>
-                Neu bei SharedSheets? <Link to="/register">Registrieren</Link>
+                Neu bei SharedSheets? <Link className="alias-pointer" to="/register">Registrieren</Link>
             </p>
 
             <ResponseInfo isValid={ validLogin } validOutput="Anmeldung erfolgreich!" nonValidOutput="Anmeldung fehlgeschlagen!" onlyNonValid={ false } />

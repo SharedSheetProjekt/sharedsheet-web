@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { api_load_all_available_solutions_by_sheet_id } from '../../scripts/api';
 import Moment from 'react-moment';
+import FileDownload from '../structures/FileDownload';
 
 const SolutionViewer = () => {
     let { sheetID } = useParams();
@@ -33,7 +34,6 @@ const SolutionViewer = () => {
                         <details key={solutionByUser.username}>
                             <summary>{solutionByUser.username}</summary>
                                 {solutions.map((widgetSolution) => {
-                                    console.log(widgetSolution)
                                     return (
                                         <details key={widgetSolution[0]} style={{ paddingLeft: '1rem' }}>
                                             <summary>Widget {widgetSolution[0]}</summary>
@@ -44,7 +44,7 @@ const SolutionViewer = () => {
                                                             Lösung vom <Moment date={solution.created_at} format="DD.MM.YYYY HH:mm" />
                                                         </span>
                                                         <br />
-                                                        {JSON.parse(solution.content)?.text}
+                                                        {(solution?.type === 'text' ? JSON.parse(solution.content)?.text : <FileDownload fileName={ solution?.comment } solutionId={ solution?.id } />)}
                                                     </p>
                                                 );
                                             })}

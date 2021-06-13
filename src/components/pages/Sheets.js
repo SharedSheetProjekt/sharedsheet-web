@@ -50,6 +50,7 @@ const Sheets = () => {
                     <button className="icon-desc" onClick={() => {
                         history.push('/sheets/new');
                     }}><span className="material-icons">note_add</span>Neues Sheet erstellen</button>
+
                     <ul>
                         {
                             (availableSheets ? availableSheets.map((sheet) => {
@@ -60,10 +61,11 @@ const Sheets = () => {
                             }) : null)
                         }
                     </ul>
-                    <hr/><br/>
+                    
+                    {/*<hr/><br/>
                     <MarkdownTest />
                     <button onClick={ fakeLoad }>Load</button>
-                    <Loader isLoading={ loading } />
+                    <Loader isLoading={ loading } />*/}
                 </Route>
                 <Route exact path={`${path}/new`}>
                     <SheetCreator />

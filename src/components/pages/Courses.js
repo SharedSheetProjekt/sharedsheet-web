@@ -47,7 +47,6 @@ const Courses = () => {
                         history.push('/courses/join');
                     }}><span className="material-icons">group_add</span>Kurs beitreten</button>
 
-                    <h2>Eigene Kurse</h2>
                     <ul>
                         {
                             (availableCourses ? availableCourses.map((course) => {

@@ -1,3 +1,5 @@
+const debugMode = false;
+
 const axios = require('axios');
 axios.defaults.baseURL = 'https://sharedsheets.henrybrink.de/api';
 axios.defaults.timeout = 10000;
@@ -10,6 +12,9 @@ const request = async (url, params, method) => {
             break;
         case 'POST':
             return await axios.post(url, params, null);
+            break;
+        case 'POST_UPLOAD':
+            return await axios.post(url, params, {headers: {'Content-Type': 'multipart/form-data'}})
             break;
         case 'PUT':
             return await axios.put(url, null, {params: params});
@@ -33,46 +38,46 @@ export const setAuthenticationToken = (token) => {
  **************************************************************************/
 
 export const api_login = async (username, password) => {
-    console.log('api_login...');
+    if (debugMode) console.log('api_login...');
     try {
         const response = await request('/users/login/web', {username: username, password: password});
         const token = response.data.token;
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         return token;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
         /*if (error.response.data.status === 'error') {
-            console.log(error.response.data.errors);
+            if (debugMode) console.log(error.response.data.errors);
         }*/
     }
 }
 
 export const api_register = async (username, password, email, device_name, secret) => {
-    console.log('api_register...');
+    if (debugMode) console.log('api_register...');
     try {
         const response = await request('/users/register', {username: username, password: password, email: email, device_name: device_name, secret: secret});
         const token = response.data.token;
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         return token;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
         /*if (error.response.data.status === 'error') {
-            console.log(error.response.data.errors);
+            if (debugMode) console.log(error.response.data.errors);
         }*/
     }
 }
 
 export const api_logout = async () => {
-    console.log('api_logout...');
+    if (debugMode) console.log('api_logout...');
     try {
         const response = await request('/users/logout/web', null, 'GET');
         const status = (response.status === 204);
         if (status) axios.defaults.headers.common['Authorization'] = null;
         return (status);
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
         /*if (error.response.data.status === 'error') {
-            console.log(error.response.data.errors);
+            if (debugMode) console.log(error.response.data.errors);
         }*/
     }
 }
@@ -82,43 +87,43 @@ export const api_logout = async () => {
  **************************************************************************/
 
 export const api_load_available_sheets = async () => {
-    console.log('api_load_available_sheets');
+    if (debugMode) console.log('api_load_available_sheets');
     try {
         const response = await request('/sheets', null, 'GET');
         return response.data;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }    
 }
 
 export const api_load_sheet_by_id = async (id) => {
-    console.log('api_load_sheet_by_id');
+    if (debugMode) console.log('api_load_sheet_by_id');
     try {
         const response = await request(`/sheets/${id}`, null, 'GET');
         return response.data;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }    
 }
 
 export const api_create_new_sheet = async (title, description, due) => {
-    console.log('api_create_new_sheet');
+    if (debugMode) console.log('api_create_new_sheet');
     try {
         const response = await request('/sheets', {title: title, description: description, due: due}, 'POST');
         return response.data.id;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
 export const api_delete_sheet = async (id) => {
-    console.log('api_delete_sheet');
+    if (debugMode) console.log('api_delete_sheet');
     try {
         const response = await request(`/sheets/${id}`, null, 'DELETE');
         const status = (response.status === 204);
         return status;
     } catch (error) {
-        //console.log(error);
+        //if (debugMode) console.log(error);
     }
 }
 
@@ -127,58 +132,57 @@ export const api_delete_sheet = async (id) => {
  **************************************************************************/
 
 export const api_create_new_widget = async (sheetID, widgetObj) => {
-    console.log('api_create_new_widget');
+    if (debugMode) console.log('api_create_new_widget');
     try {
         const response = await request(`/sheets/${sheetID}/widgets`, widgetObj, 'POST');
         const status = (response.status === 201);
         return status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
 export const api_update_widget = async (widgetID, widgetObj) => {
-    console.log('api_update_widget');
-    console.table(widgetObj);
+    if (debugMode) console.log('api_update_widget');
     try {
         const response = await request(`/widgets/${widgetID}`, widgetObj, 'PUT');
         const status = (response.status === 200);
         return status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
 export const api_move_widget = async (widgetID, direction) => {
-    console.log('api_move_widget');
+    if (debugMode) console.log('api_move_widget');
     try {
         const response = await request(`/widgets/${widgetID}/move`, {direction: direction}, 'POST');
         const status = (response.status === 204);
         return status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
 export const api_load_widget_by_id = async (id) => {
-    console.log('api_load_widget_by_id');
+    if (debugMode) console.log('api_load_widget_by_id');
     try {
         const response = await request(`/widgets/${id}`, null, 'GET');
         return response.data;
     } catch (error) {
         // TODO: Fix error (code: 405)
-        console.log(error);
+        if (debugMode) console.log(error);
     }    
 }
 
 export const api_delete_widget = async (id) => {
-    console.log('api_delete_widget');
+    if (debugMode) console.log('api_delete_widget');
     try {
         const response = await request(`/widgets/${id}`, null, 'DELETE');
         const status = (response.status === 204);
         return status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
@@ -187,64 +191,64 @@ export const api_delete_widget = async (id) => {
  **************************************************************************/
 
 export const api_load_available_courses = async () => {
-    console.log('api_load_available_courses');
+    if (debugMode) console.log('api_load_available_courses');
     try {
         const response = await request('/courses', null, 'GET');
         return response.data;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }    
 }
 
 export const api_create_new_course = async (courseName) => {
-    console.log('api_create_new_course');
+    if (debugMode) console.log('api_create_new_course');
     try {
         const response = await request('/courses', {name: courseName}, 'POST');
         const status = (response.status === 201);
         return status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
 export const api_load_course_by_id = async (courseID) => {
-    console.log('api_load_course_by_id');
+    if (debugMode) console.log('api_load_course_by_id');
     try {
         const response = await request(`/courses/${courseID}`, null, 'GET');
         return response.data;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }    
 }
 
 export const api_delete_course = async (courseID) => {
-    console.log('api_delete_course');
+    if (debugMode) console.log('api_delete_course');
     try {
         const response = await request(`/courses/${courseID}`, null, 'DELETE');
         const status = (response.status === 204);
         return status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
 export const api_create_new_invite_token = async (courseID) => {
-    console.log('api_create_new_invite_token');
+    if (debugMode) console.log('api_create_new_invite_token');
     try {
         const response = await request(`/courses/${courseID}/invites`, null, 'POST');
         return response.data?.token;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
 export const api_join_course_with_token = async (inviteToken) => {
-    console.log('api_join_course_with_token');
+    if (debugMode) console.log('api_join_course_with_token');
     try {
         const response = await request(`/courses/join`, {token: inviteToken}, 'POST');
         return response.status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
@@ -253,71 +257,73 @@ export const api_join_course_with_token = async (inviteToken) => {
  **************************************************************************/
 
 export const api_load_solutions_by_widget_id = async (widgetId) => {
-    console.log('api_load_solutions_by_widget_id');
+    if (debugMode) console.log('api_load_solutions_by_widget_id');
     try {
         const response = await request(`/widgets/${widgetId}/solutions`, null, 'GET');
         return response.data;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }    
 }
 
 export const api_load_all_available_solutions_by_sheet_id = async (sheetId) => {
-    console.log('api_load_all_available_solutions_by_sheet_id');
+    if (debugMode) console.log('api_load_all_available_solutions_by_sheet_id');
     try {
         const response = await request(`/sheets/${sheetId}/solutions`, null, 'GET');
         return response.data;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }    
 }
 
 export const api_create_new_solution = async (widgetId, type, contentObj) => {
-    console.log('api_create_new_solution');
+    if (debugMode) console.log('api_create_new_solution');
     try {
         const response = await request(`/widgets/${widgetId}/solutions`, {type: type, content: contentObj}, 'POST');
         const status = (response.status === 201);
         return status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
-export const api_upload_new_solution = async (widgetId, comment, binaryString) => {
-    console.log('api_upload_new_solution');
+export const api_upload_new_solution = async (widgetId, formData) => {
+    if (debugMode) console.log('api_upload_new_solution');
     try {
-        const response = await request(`/widgets/${widgetId}/solutions`, {comment: comment, file: binaryString}, 'POST');
+        const response = await request(`/widgets/${widgetId}/solutions/upload`, formData, 'POST_UPLOAD');
         const status = (response.status === 201);
         return status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }
 
 export const api_download_solution_by_solution_id = async (solutionId) => {
-    console.log('api_download_solution_by_solution_id');
+    if (debugMode) console.log('api_download_solution_by_solution_id');
     try {
-        /*const response = await request(`/solutions/${solutionId}/download`, null, 'GET').data.blob();
-        const url = window.URL.createObjectURL(new Blob([response]));
+        const response = await request(`/solutions/${solutionId}/download`, null, 'GET');
+        if (debugMode) console.log(response)
+        const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement('a');
         link.href = url;
-        link.setAttribute('download');
+        const fileType = response.headers['content-disposition'].split('.')[1];
+        link.setAttribute('download', `${solutionId}.${fileType}`);
         document.body.appendChild(link);
         link.click();
-        link.parentNode.removeChild(link);*/
+        link.parentNode.removeChild(link);
         return true;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }    
 }
 
 export const api_delete_solution = async (solutionID) => {
-    console.log('api_delete_solution');
+    if (debugMode) console.log('api_delete_solution');
     try {
         const response = await request(`/solutions/${solutionID}`, null, 'DELETE');
         const status = (response.status === 204);
         return status;
     } catch (error) {
-        console.log(error);
+        if (debugMode) console.log(error);
     }
 }

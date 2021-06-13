@@ -1,5 +1,6 @@
 import Moment from 'react-moment';
 import { api_delete_solution } from '../../scripts/api';
+import FileDownload from '../structures/FileDownload';
 
 const SolutionList = ({ solutions }) => {
     const deleteSolution = async (solutionId) => {
@@ -26,7 +27,7 @@ const SolutionList = ({ solutions }) => {
                                         <button onClick={ async () => {deleteSolution(solution.id)} } style={{ marginLeft: '1rem' }} title="Lösung löschen"><span className="material-icons">delete</span></button>
                                     </span>
                                     <br />
-                                    {JSON.parse(solution.content)?.text}
+                                    {(solution?.type === 'text' ? JSON.parse(solution.content)?.text : <FileDownload fileName={ solution?.comment } solutionId={ solution?.id } />)}
                                 </li>
                             );
                         }) : null)

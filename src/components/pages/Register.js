@@ -88,7 +88,9 @@ const Register = () => {
 
     return (
         <div>
-            <h1>Register</h1>
+            <h1>SharedSheets</h1>
+            <hr />
+            <h2>Registrierung</h2>
 
             <form onSubmit={ handleSubmit }>
                 <label htmlFor="username">Benutzername: </label><br/><input type="text" id="username" onInput={ handleUsername } /><br/>
@@ -100,7 +102,7 @@ const Register = () => {
             </form>
 
             <p>
-                Sie besitzen bereits ein Konto? <Link to="/login">Login</Link>
+                Sie besitzen bereits ein Konto? <Link className="alias-pointer" to="/">Anmelden</Link>
             </p>
 
             <ResponseInfo isValid={ validUsername } nonValidOutput="Fehlender Benutzername!" onlyNonValid={ true } />

@@ -26,30 +26,27 @@ const Header = () => {
                         {/*<Link to="/" className="nav-link">Home</Link>*/}
                         <NavLink to="/" exactMatch={true} label="Home" />
                     </li>
-                    <li>
-                        {/*<Link to="/login" className="nav-link">Login</Link>*/}
+                    {/*<li>
+                        <Link to="/login" className="nav-link">Login</Link>
                         <NavLink to="/login" exactMatch={true} label="Login" />
-                    </li>
+                    </li>*/}
                     <li>
                         {/*<Link to="/sheets" className="nav-link">Sheets</Link>*/}
                         <NavLink to="/sheets" exactMatch={false} label="Sheets" />
                     </li>
                     <li>
                         {/*<Link to="/account" className="nav-link">Account</Link>*/}
-                        <NavLink to="/courses" exactMatch={true} label="Courses" />
+                        <NavLink to="/courses" exactMatch={true} label="Kurse" />
                     </li>
                     <li>
                         {/*<Link to="/about" className="nav-link">About</Link>*/}
-                        <NavLink to="/about" exactMatch={true} label="About" />
+                        <NavLink to="/about" exactMatch={true} label="Über" />
                     </li>
                 </ul>
             </div>
-            <div style={{ padding: '18px' }}>
-                Benutzername
-            </div>
             <button style={{ height: '30px', marginRight: '20px' }} onClick={ () => {
                 auth.logout(() => {
-                    console.log('Logout!');
+                    //console.log('Logout!');
                     history.push('/');
                 });
             } }><span className="material-icons">logout</span></button>

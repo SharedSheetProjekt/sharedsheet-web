@@ -52,9 +52,9 @@ const WidgetEditor = () => {
                         <label htmlFor="hint">Beschreibung</label><br/>
                         <input type="text" name="hint" id="hint" style={{ width: '100%' }} defaultValue={widgetContent.hint} required/>
                         <br/><br/>
-                        {/*<label htmlFor="size">Maximale Dateigröße <span style={{ color: 'red' }}>(WIP)</span></label><br/>
-                        <input type="number" min="1" name="size" id="size" style={{ width: '50px', textAlign: 'right' }} defaultValue={widgetContent.size} required/> MB
-                        <br/><br/>*/}
+                        <label htmlFor="size">Maximale Dateigröße</label><br/>
+                        <input type="number" min="1" name="size" id="size" style={{ width: '50px', textAlign: 'right' }} defaultValue={widgetContent?.size} required/> MB
+                        <br/><br/>
                         <details>
                             <summary>Erlaubte Dateiformate</summary>
                             <input type="checkbox" name="format" value="any" defaultChecked={widgetContent.filetypes.includes('*') ? true : false}/><label>.*</label><br/>
@@ -97,6 +97,7 @@ const WidgetEditor = () => {
                     break;
                 case 'UploadWidget':
                     const hint = document.getElementById('hint').value;
+                    const maxFileSize = document.getElementById('size').value;
                     const fileTypes = [];
                     let checkedFileTypeBoxes = document.querySelectorAll('input[type="checkbox"][name="format"]:checked');
                     for (const checkbox of checkedFileTypeBoxes) {
@@ -130,7 +131,7 @@ const WidgetEditor = () => {
 
                     const fileTypesString = fileTypes.join();
                     
-                    if (hint && fileTypes) {widgetObj = {content: JSON.stringify({hint: hint, filetypes: fileTypesString})};}
+                    if (hint && maxFileSize && maxFileSize > 0 && fileTypes) {widgetObj = {content: JSON.stringify({hint: hint, filetypes: fileTypesString, size: maxFileSize})};}
                     break;
                 default:
                     return null;
@@ -164,7 +165,7 @@ const WidgetEditor = () => {
 
     return (
         <div>
-            <h1>Widget editieren <span style={{ color: 'red' }}>(WIP)</span></h1>
+            <h1>Widget editieren</h1>
             <button onClick={() => {
                 history.push(`/sheets/${sheetID}`);
             }}>Zurück zum Sheet</button>

@@ -31,9 +31,8 @@ const App = () => {
               <ProtectedRoute path="/courses" component={ Courses } />
               <ProtectedRoute path="/sheets" component={ Sheets } />
               <Route exact path="/register" component={ Register } />
-              <Route exact path="/login"component={ Login } />
               <Redirect from="/sharedsheet-web" to="/" />
-              <Route exact path="/" component={ Home } />
+              <Route exact path="/" component={ Login } />
               <Route path="*" component={ NotFound404 } />
             </Switch>
           </main>

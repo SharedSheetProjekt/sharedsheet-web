@@ -46,7 +46,7 @@ const CourseJoin = () => {
                 <br/><br/>
                 <input type="submit" value="Beitreten" />
             </form>
-
+            <br />
             <ResponseInfo isValid={ validJoin } validOutput="Kurs erfolgreich beigetreten!" nonValidOutput={ errorString } onlyNonValid={ false } />
         </div>
     )

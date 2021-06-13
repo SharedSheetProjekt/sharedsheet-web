@@ -86,6 +86,7 @@ const WidgetCreator = () => {
                     break;
                 case 'UploadWidget':
                     const hint = document.getElementById('hint').value;
+                    const maxFileSize = document.getElementById('size').value;
                     const fileTypes = [];
                     let checkedFileTypeBoxes = document.querySelectorAll('input[type="checkbox"][name="format"]:checked');
                     for (const checkbox of checkedFileTypeBoxes) {
@@ -119,7 +120,7 @@ const WidgetCreator = () => {
 
                     const fileTypesString = fileTypes.join();
                     
-                    if (hint && fileTypes) {widgetObj = {content: JSON.stringify({hint: hint, filetypes: fileTypesString})};}
+                    if (hint && maxFileSize && maxFileSize > 0 && fileTypes) {widgetObj = {content: JSON.stringify({hint: hint, filetypes: fileTypesString, size: maxFileSize})};}
                     break;
                 default:
                     return null;
