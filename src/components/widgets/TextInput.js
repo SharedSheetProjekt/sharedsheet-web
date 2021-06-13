@@ -19,7 +19,7 @@ const TextInput = ({ widgetID, type, placeholder, title, solutions }) => {
         <WidgetScaffold widgetID={ widgetID }>
             <div>{ title }</div>
             <input type={ type } placeholder={ placeholder } onChange={ handleInputChange } />
-            <button onClick={ async () => {
+            <button className="fullbutton animated-button" style={{display: solution != '' ? 'block' : 'none'}}  onClick={ async () => {
                 if (solution) {
                     await api_create_new_solution(widgetID, 'text', JSON.stringify({text: solution}));
                     window.location.reload();

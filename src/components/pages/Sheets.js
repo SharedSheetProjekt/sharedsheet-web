@@ -14,6 +14,7 @@ import { api_load_available_sheets, api_delete_sheet } from "../../scripts/api";
 import WidgetCreator from "./WidgetCreator";
 import WidgetEditor from "./WidgetEditor";
 import SolutionViewer from "./SolutionViewer";
+import Moment from "react-moment";
 
 const Sheets = () => {
 
@@ -21,7 +22,7 @@ const Sheets = () => {
     let history = useHistory();
 
     const [availableSheets, setAvailableSheets] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
 
     const deleteSheet = async (sheetId) => {
         if (await api_delete_sheet(sheetId))
@@ -38,20 +39,53 @@ const Sheets = () => {
 
     useEffect(async () => {
         const sheets = await api_load_available_sheets();
+
+        // Loading-Indicator entfernen
+        setLoading(false);
+
         //console.log(sheets);
         setAvailableSheets(sheets);
     }, []);
 
     return (
         <div>
+            <Loader isLoading={loading}></Loader>
+
             <Switch>
                 <Route exact path={path}>
-                    <h1>Sheets</h1>
-                    <button className="icon-desc" onClick={() => {
+                    <h1>Meine Sheets</h1>
+                    <button className="icon-desc fullbutton" onClick={() => {
                         history.push('/sheets/new');
-                    }}><span className="material-icons">note_add</span>Neues Sheet erstellen</button>
+                    }}>
+                        <span className="material-icons">note_add</span>Neues Sheet erstellen
+                    </button>
 
-                    <ul>
+                    <table class="item-list">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Autor</th>
+                                <th>Fälligkeitsdatum</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {
+                                (availableSheets ? availableSheets.map((sheet) => {
+                                    // Return the sheet as row, which will redirect the user to the sheet-view:
+                                    return <tr onClick={() => history.push('/sheets/' + sheet.id)}>
+                                            <td>{ sheet.title }</td>
+                                            <td>{ sheet.author }</td>
+                                            <td><Moment date={sheet.due} add={{ hours: 2 }} format="DD.MM.YYYY HH:mm" /></td>
+                                            <td><button onClick={() => {deleteSheet(sheet.id)} }>Löschen</button></td>
+                                        </tr>
+                                }) : null)
+                            }
+                        </tbody>
+                    </table>
+
+                    {/*<ul>
                         {
                             (availableSheets ? availableSheets.map((sheet) => {
                                 return <li key={sheet.id} style={{ margin: '1rem 0' }}>

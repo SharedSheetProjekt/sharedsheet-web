@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router';
 import { api_load_course_by_id } from '../../scripts/api';
 import ResponseInfo from '../structures/ResponseInfo';
+import Loader from '../structures/Loader';
 
 const Course = () => {
     let { courseId } = useParams();
@@ -9,6 +10,7 @@ const Course = () => {
 
     const [course, setCourse] = useState({});
     const [validCourseId, setValidCourseId] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const loadCourse = async () => {
         const course = await api_load_course_by_id(courseId);
@@ -17,6 +19,8 @@ const Course = () => {
         } else {
             setValidCourseId(false);
         }
+
+        setLoading(false);
     }
 
     useEffect(async () => {
@@ -28,6 +32,8 @@ const Course = () => {
     } else {
         return (
             <div>
+                <Loader isLoading={loading}></Loader>
+
                 <h1>Kursinfo</h1>
     
                 <button onClick={() => {

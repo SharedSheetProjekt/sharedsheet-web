@@ -9,6 +9,7 @@ import Upload from "../widgets/Upload";
 import EditBar from "../structures/EditBar";
 import ResponseInfo from "../structures/ResponseInfo";
 import Moment from 'react-moment';
+import Loader from "../structures/Loader";
 
 const Sheet = () => {
     const [sheet, setSheet] = useState({});
@@ -17,9 +18,14 @@ const Sheet = () => {
     let { sheetID } = useParams();
     let history = useHistory();
 
+    let [loading, setLoading] = useState(true);
+
     const loadSheet = async () => {
         const sheet = await api_load_sheet_by_id(sheetID);
         if (sheet) setSheet(sheet);
+    
+        // Loading verstecken
+        setLoading(false);
     }
     
 
@@ -38,6 +44,8 @@ const Sheet = () => {
     else {
     return (
         <div>
+            <Loader isLoading={loading}></Loader>
+
             <table width="100%">
                 <tbody>
                 <tr>
@@ -72,23 +80,25 @@ const Sheet = () => {
                 <pre>{`${JSON.stringify(sheet).replace('{', '{\n  ').replace('}', '\n}').replaceAll(',', ',\n  ')}`}</pre>
             </div>*/}
             {sheet.widgets ? sheet.widgets.map((widget) => {
-                const content = JSON.parse(widget.content);
-                switch (widget.type) {
-                    case 'TextWidget':
-                        return <Text widgetID={ widget.id } key={ widget.id } content={ content.content } />;
-                        break;
-                    case 'ImageWidget':
-                        return <Image widgetID={ widget.id } key={ widget.id } src={ content.src } alt={ content.alt } title={ widget.title } />;
-                        break;
-                    case 'TextInputWidget':
-                        return <TextInput widgetID={ widget.id } key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } title={ widget.title } solutions={ widget.solutions } />;
-                        break;
-                    case 'UploadWidget':
-                        return <Upload widgetID={ widget.id } key={ widget.id } hint={ content.hint } fileTypes={ content.filetypes } maxFileSize={ content.size } title={ widget.title } solutions={ widget.solutions } />;
-                        break;
-                    default:
-                        return null;
-                        break;
+                {
+                    const content = JSON.parse(widget.content);
+                    switch (widget.type) {
+                        case 'TextWidget':
+                            return <Text widgetID={ widget.id } key={ widget.id } content={ content.content } />;
+                            break;
+                        case 'ImageWidget':
+                            return <Image widgetID={ widget.id } key={ widget.id } src={ content.src } alt={ content.alt } title={ widget.title } />;
+                            break;
+                        case 'TextInputWidget':
+                            return <TextInput widgetID={ widget.id } key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } title={ widget.title } solutions={ widget.solutions } />;
+                            break;
+                        case 'UploadWidget':
+                            return <Upload widgetID={ widget.id } key={ widget.id } hint={ content.hint } fileTypes={ content.filetypes } maxFileSize={ content.size } title={ widget.title } solutions={ widget.solutions } />;
+                            break;
+                        default:
+                            return null;
+                            break;
+                    }
                 }
             }) : null}
             <EditBar deleteWidgetCb={ deleteWidget } updateWidgetsCb={ loadSheet } isVisible={ editMode } />   

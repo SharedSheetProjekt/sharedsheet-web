@@ -8,8 +8,8 @@ const FileDownload = ({ fileName, solutionId, solutionToken }) => {
     
     
     return (
-        <button className="download-button" onClick={ handleDownload }>
-            {fileName}
+        <button className="button" onClick={ handleDownload }>
+            <span class="material-icons">download</span> {fileName} herunterladen
         </button>
     )
 }

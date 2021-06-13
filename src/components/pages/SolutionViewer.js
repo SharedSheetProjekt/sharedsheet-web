@@ -3,22 +3,28 @@ import { useHistory, useParams } from 'react-router';
 import { api_load_all_available_solutions_by_sheet_id } from '../../scripts/api';
 import Moment from 'react-moment';
 import FileDownload from '../structures/FileDownload';
+import Loader from '../structures/Loader';
 
 const SolutionViewer = () => {
     let { sheetID } = useParams();
     let history = useHistory();
 
     const [solutions, setSolutions] = useState([]);
+    const [loading, setLoading] = useState(true);
     
     useEffect(async () => {
         const solutions = await api_load_all_available_solutions_by_sheet_id(sheetID);
         if (solutions) {
             setSolutions(Object.values(solutions));
         }
+
+        setLoading(false);
     }, [])
 
     return (
         <div>
+            <Loader isLoading={loading}></Loader>
+
             <h1>Lösungs-Übersicht</h1>
 
             <button onClick={() => {
