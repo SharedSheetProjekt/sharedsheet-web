@@ -17,7 +17,6 @@ const TextInput = ({ widgetID, type, placeholder, title, solutions }) => {
 
     return (
         <WidgetScaffold widgetID={ widgetID }>
-            <div>{ title }</div>
             <input type={ type } placeholder={ placeholder } onChange={ handleInputChange } />
             <button className="fullbutton animated-button" style={{display: solution != '' ? 'block' : 'none'}}  onClick={ async () => {
                 if (solution) {

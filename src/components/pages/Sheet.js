@@ -1,19 +1,23 @@
 import { useState, useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { api_load_sheet_by_id } from "../../scripts/api";
+import { useParams, useHistory, useRouteMatch } from "react-router-dom";
+import { api_delete_widget, api_load_sheet_by_id } from "../../scripts/api";
 
 import Text from "../widgets/Text";
 import Image from "../widgets/Image";
 import TextInput from "../widgets/TextInput";
 import Upload from "../widgets/Upload";
-import EditBar from "../structures/EditBar";
 import ResponseInfo from "../structures/ResponseInfo";
 import Moment from 'react-moment';
 import Loader from "../structures/Loader";
+import WidgetView from "../widgets/WidgetView";
+import { api_move_widget } from "../../scripts/api";
+import EditBar from '../structures/EditBar';
 
 const Sheet = () => {
     const [sheet, setSheet] = useState({});
     const [editMode, setEditMode] = useState(false);
+
+    let {path, url} = useRouteMatch();
 
     let { sheetID } = useParams();
     let history = useHistory();
@@ -27,14 +31,19 @@ const Sheet = () => {
         // Loading verstecken
         setLoading(false);
     }
-    
 
+    const rearrangeWidget = async (widget, move) => {   
+        await api_move_widget(widget.id, move);
+        await loadSheet();
+    }
+    
     useEffect(async () => {
         await loadSheet();
     }, []);
 
-    const deleteWidget = (widgetId) => {
-        setSheet( {...sheet, widgets: sheet.widgets.filter(widget => widget.id !== widgetId)} );
+    const deleteWidget = (widget) => {
+        api_delete_widget(widget.id);
+        setSheet( {...sheet, widgets: sheet.widgets.filter(w => w.id !== widget.id)} );
     }
     
 
@@ -57,10 +66,6 @@ const Sheet = () => {
                         <button style={{ width: '35px' }} title="Neues Widget hinzufügen" onClick={() => {
                             history.push(`/sheets/${sheetID}/new`);
                         }}><span className="material-icons">add_box</span></button>
-                        <button style={{ width: '35px' }} onClick={() => {
-                            setEditMode(!editMode);
-                        }} title={(editMode ? "Wechsel zum View-Modus" : "Wechsel zum Edit-Modus")}
-                        >{(editMode ? <span className="material-icons">visibility</span> : <span className="material-icons">edit</span>)}</button>
                     </td>
                 </tr>
                 <tr>
@@ -80,26 +85,19 @@ const Sheet = () => {
                 <pre>{`${JSON.stringify(sheet).replace('{', '{\n  ').replace('}', '\n}').replaceAll(',', ',\n  ')}`}</pre>
             </div>*/}
             {sheet.widgets ? sheet.widgets.map((widget) => {
-                {
-                    const content = JSON.parse(widget.content);
-                    switch (widget.type) {
-                        case 'TextWidget':
-                            return <Text widgetID={ widget.id } key={ widget.id } content={ content.content } />;
-                            break;
-                        case 'ImageWidget':
-                            return <Image widgetID={ widget.id } key={ widget.id } src={ content.src } alt={ content.alt } title={ widget.title } />;
-                            break;
-                        case 'TextInputWidget':
-                            return <TextInput widgetID={ widget.id } key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } title={ widget.title } solutions={ widget.solutions } />;
-                            break;
-                        case 'UploadWidget':
-                            return <Upload widgetID={ widget.id } key={ widget.id } hint={ content.hint } fileTypes={ content.filetypes } maxFileSize={ content.size } title={ widget.title } solutions={ widget.solutions } />;
-                            break;
-                        default:
-                            return null;
-                            break;
-                    }
-                }
+                return (
+                    <div className="widget">
+                        <div className="widget-editbar">
+                            <button className="flat-button" style={{marginRight: "10px"}} onClick={() => history.push(`${url}/edit/${widget.id}`)}><span class="material-icons">edit</span></button>
+                            <button className="flat-button" style={{marginRight: "10px"}} onClick={() => deleteWidget(widget)}><span class="material-icons">delete</span></button>
+                            <button className="flat-button" style={{marginRight: "10px"}} onClick={() => rearrangeWidget(widget, 'up')}><span class="material-icons">arrow_upward</span></button>
+                            <button className="flat-button" onClick={() => rearrangeWidget(widget, 'down')}><span class="material-icons">arrow_downward</span></button>
+                        </div>
+
+                        <h3>{ widget.title }</h3>
+                        <WidgetView widget={widget}></WidgetView>
+                    </div>
+                )
             }) : null}
             <EditBar deleteWidgetCb={ deleteWidget } updateWidgetsCb={ loadSheet } isVisible={ editMode } />   
         </div>

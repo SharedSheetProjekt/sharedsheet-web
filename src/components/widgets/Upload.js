@@ -34,7 +34,6 @@ const Upload = ({ widgetID, hint, fileTypes, maxFileSize, title, solutions }) =>
 
     return (
         <WidgetScaffold widgetID={ widgetID }>
-            <p>{ title } <br /> <i>{ hint }</i></p>
             <input id="fileUpload" onInput={ handleUpload } type="file" accept={ fileTypes } style={{ width: '100%' }} />
             <SolutionList solutions={ solutions } />
         </WidgetScaffold>

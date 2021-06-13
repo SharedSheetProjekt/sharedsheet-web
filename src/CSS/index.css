@@ -112,10 +112,17 @@ button {
 textarea {
   width: 100%;
   box-sizing: border-box;
-  border: 2px solid #173591;
+  border: none;
+  background-color:rgb(231, 231, 231);
+  font-family: inherit;
+  padding: 10px;
   color: #173591;
   border-radius: 5px;
   resize: vertical;
+}
+
+textarea:hover {
+  outline: none;
 }
 
 label {
@@ -127,9 +134,10 @@ select {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
-  border: 2px solid;
   color: #173591;
+  border: none;
   border-radius: 5px;
+  background-color:rgb(231, 231, 231);
 }
 
 .fullbutton {
@@ -193,6 +201,29 @@ select {
   background-color: transparent;
   margin-bottom: 10px;
 }
+
+.widget {
+  position: relative;
+}
+
+.widget-editbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  display: none;
+  background-color: lightgray;
+}
+
+.widget-editbar .flat-button {
+  margin-bottom: 0px;
+}
+
+.widget:hover .widget-editbar {
+  display: block;
+}
+
+
 
 @keyframes button-in {
   0% {

@@ -27,7 +27,7 @@ const SolutionList = ({ solutions }) => {
                                     <br />
                                     {(solution?.type === 'text' ? JSON.parse(solution.content)?.text : <FileDownload fileName={ solution?.comment } solutionId={ solution?.id } solutionToken={solution?.public_token} />)}
 
-                                    <button className="flat-button fullbutton" onClick={ () => deleteSolution(solution?.id) }>Entfernen</button>
+                                    <button className="flat-button" style={{display: "block"}} onClick={ () => deleteSolution(solution?.id) }>Entfernen</button>
                                 </div>
                             );
                         }) : null)
