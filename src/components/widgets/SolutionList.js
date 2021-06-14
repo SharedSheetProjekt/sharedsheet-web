@@ -15,24 +15,23 @@ const SolutionList = ({ solutions }) => {
     if (solutions.length !== 0) {
         return (
             <div>
-                <details>
+                <details open="true">
                     <summary style={{ cursor: 'pointer' }}>{(solutions.length > 1 ? 'Deine Lösungen' : 'Deine Lösung')}</summary>
-                    <ul>
                     {
                         (solutions ? solutions.map((solution) => {
                             return (
-                                <li key={solution.id}>
+                                <div className="card" key={solution.id}>
                                     <span style={{ color: 'grey' }}>
                                         Lösung vom <Moment date={solution.created_at} add={{ hours: 2 }} format="DD.MM.YYYY HH:mm" />
-                                        <button onClick={ async () => {deleteSolution(solution.id)} } style={{ marginLeft: '1rem' }} title="Lösung löschen"><span className="material-icons">delete</span></button>
                                     </span>
                                     <br />
-                                    {(solution?.type === 'text' ? JSON.parse(solution.content)?.text : <FileDownload fileName={ solution?.comment } solutionId={ solution?.id } />)}
-                                </li>
+                                    {(solution?.type === 'text' ? JSON.parse(solution.content)?.text : <FileDownload fileName={ solution?.comment } solutionId={ solution?.id } solutionToken={solution?.public_token} />)}
+
+                                    <button className="flat-button" style={{display: "block"}} onClick={ () => deleteSolution(solution?.id) }>Entfernen</button>
+                                </div>
                             );
                         }) : null)
                     }
-                    </ul>
                 </details>
             </div>
         )

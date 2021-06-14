@@ -1,14 +1,15 @@
 import { api_download_solution_by_solution_id } from '../../scripts/api';
 
-const FileDownload = ({ fileName, solutionId }) => {
+const FileDownload = ({ fileName, solutionId, solutionToken }) => {
     const handleDownload = async () => {
-        await api_download_solution_by_solution_id(solutionId);
+        // Redirect the user to the download
+        window.location.href = 'https://sharedsheets.henrybrink.de/downloads/solutions/' + solutionToken;
     }
     
     
     return (
-        <button className="download-button" onClick={ handleDownload }>
-            {fileName}
+        <button className="button" onClick={ handleDownload }>
+            <span class="material-icons">download</span> {fileName} herunterladen
         </button>
     )
 }

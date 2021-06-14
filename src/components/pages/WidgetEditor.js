@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { api_load_widget_by_id, api_update_widget } from '../../scripts/api';
 import ResponseInfo from '../structures/ResponseInfo';
+import Loader from '../structures/Loader';
 
 const WidgetEditor = () => {
     let { sheetID, widgetID } = useParams();
@@ -10,9 +11,13 @@ const WidgetEditor = () => {
     const [widget, setWidget] = useState(null);
     const [validCreation, setValidCreation] = useState(null);
 
+    const [loading, setLoading] = useState(true);
+
     useEffect(async () => {
         // TODO: API call for widget by ID
         setWidget(await api_load_widget_by_id(widgetID));
+
+        setLoading(false);
     }, []);
 
     const renderSpecificWidgetEditor = (widgetType, widgetContent) => {
@@ -165,10 +170,12 @@ const WidgetEditor = () => {
 
     return (
         <div>
+            <Loader isLoading={loading}></Loader>
+
             <h1>Widget editieren</h1>
             <button onClick={() => {
                 history.push(`/sheets/${sheetID}`);
-            }}>Zurück zum Sheet</button>
+            }}><span class="material-icons">arrow_left</span> Zurück zum Sheet</button>
 
             <br/><br/>
 
