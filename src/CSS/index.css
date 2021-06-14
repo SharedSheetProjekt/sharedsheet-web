@@ -22,18 +22,28 @@ button.icon-desc span.material-icons {
   margin-right: 4px;
 }
 
-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
+button.btn-no-margin {
+  margin: 0 0 0 0;
+  height: 30px;
+}
+
+button.btn-margin-top {
+  margin-top: 10px;
+}
+
+.rainbow {
+  animation: subtle-animation 3s ease-in-out 0s infinite normal;
+}
+
+#sheet-header {
+  width: 100%;
+  overflow-x: auto;
 }
 
 summary {
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  margin-bottom: 5px;
 }
 
 summary:hover {
@@ -88,7 +98,7 @@ input:focus {
   border: none;
 }
 
-input[type=submit] {
+input[type=submit], button[type=submit] {
   background-color: #173591;
   color: white;
   cursor: pointer;
@@ -98,6 +108,12 @@ input[type=submit] {
 }
 
 button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: nowrap;
+  flex-direction: row;
   padding: 10px;
   background-color: #173591;
   color: white;
@@ -107,6 +123,10 @@ button {
   box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
   font-family: inherit;
   margin-bottom: 10px;
+}
+
+button.left-margin {
+  margin-left: 5px;
 }
 
 textarea {
@@ -160,6 +180,18 @@ select {
   font-weight: normal;
 }
 
+th.center, td.center {
+  text-align: center;
+}
+
+th.left, td.left {
+  text-align: left;
+}
+
+th.right, td.right {
+  text-align: right;
+}
+
 .item-list thead tr {
   padding: 10px;
   font-size: 13px;
@@ -168,7 +200,7 @@ select {
 }
 
 .item-list thead tr th {
-  padding: 10px;
+  padding: 10px 20px;
   font-weight: normal;
 }
 
@@ -213,6 +245,7 @@ select {
   padding: 5px;
   display: none;
   background-color: lightgray;
+  box-shadow: 2px 3px 6px rgba(0,0,0,0.16), 2px 3px 6px rgba(0,0,0,0.23);
 }
 
 .widget-editbar .flat-button {
@@ -233,5 +266,48 @@ select {
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes rainbow-color {
+  0% {
+    color: #0114E6;
+  }
+  12.5% {
+    color: #00CFE6;
+  }
+  25% {
+    color: #00E649;
+  }
+  37.5% {
+    color: #84E600;
+  }
+  50% {
+    color: #E6B900;
+  }
+  62.5% {
+    color: #E66B00;
+  }
+  75% {
+    color: #E60501;
+  }
+  77.5% {
+    color: #BD01E6;
+  }
+  100% {
+    color: #0114E6;
+  }
+}
+
+
+@keyframes subtle-animation {
+  0% {
+    color: #1B44C1;
+  }
+  50% {
+    color: #002383;
+  }
+  100% {
+    color: #1B44C1;
   }
 }

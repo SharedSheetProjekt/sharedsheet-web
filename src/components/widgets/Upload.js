@@ -2,7 +2,7 @@ import { api_upload_new_solution } from "../../scripts/api";
 import WidgetScaffold from "./WidgetScaffold";
 import SolutionList from "./SolutionList";
 
-const Upload = ({ widgetID, hint, fileTypes, maxFileSize, title, solutions }) => {
+const Upload = ({ widgetID, hint, fileTypes, maxFileSize, title, solutions, loadSheetCb }) => {
     const handleUpload = async () => {
         const file = document.getElementById('fileUpload').files[0];
         maxFileSize = parseFloat(maxFileSize);
@@ -20,8 +20,7 @@ const Upload = ({ widgetID, hint, fileTypes, maxFileSize, title, solutions }) =>
                     if (!status) {
                         alert('Datei-Upload fehlgeschlagen!');
                     } else {
-                        window.location.reload();
-                        return false;
+                        await loadSheetCb();
                     }
                 } else {
                     alert('Ungültiger Dateityp!');
@@ -35,7 +34,7 @@ const Upload = ({ widgetID, hint, fileTypes, maxFileSize, title, solutions }) =>
     return (
         <WidgetScaffold widgetID={ widgetID }>
             <input id="fileUpload" onInput={ handleUpload } type="file" accept={ fileTypes } style={{ width: '100%' }} />
-            <SolutionList solutions={ solutions } />
+            <SolutionList solutions={ solutions } loadSheetCb={ loadSheetCb } />
         </WidgetScaffold>
     )
 }

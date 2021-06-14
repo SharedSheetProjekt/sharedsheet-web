@@ -20,12 +20,17 @@ const Courses = () => {
         }
     }
 
-    useEffect(async () => {
+    const loadCourses = async () => {
         const courses = await api_load_available_courses();
         setAvailableCourses(courses);
 
         // Loader verstecken:
         setLoading(false);
+    }
+    
+
+    useEffect(async () => {
+        await loadCourses();
     }, []);
 
     const copyCourseInviteToken = async (courseId) => {
@@ -57,8 +62,8 @@ const Courses = () => {
                     <table class="item-list">
                         <thead>
                             <tr>
-                                <th>Name</th>
-                                <th>Aktionen</th>
+                                <th className="left">Name</th>
+                                <th className="right">Aktionen</th>
                             </tr>
                         </thead>
 
@@ -66,9 +71,12 @@ const Courses = () => {
                             {
                                 (availableCourses ? availableCourses.map((course) => {
                                     // Return the sheet as row, which will redirect the user to the course-view:
-                                    return <tr onClick={() => history.push('/courses/' + course.id)}>
-                                            <td>{ course.name }</td>
-                                            <td><button onClick={() => copyCourseInviteToken(course.id)}><span className="material-icons">person_add</span> Einladen</button> <button onClick={() => {deleteCourse(course.id)} }><span className="material-icons">delete</span> Löschen</button></td>
+                                    return <tr>
+                                            <td onClick={() => history.push('/courses/' + course.id)}>{ course.name }</td>
+                                            <td className="right">
+                                                <button onClick={() => copyCourseInviteToken(course.id)} className="btn-no-margin icon-desc"><span className="material-icons">person_add</span> Einladen</button>
+                                                <button className="btn-no-margin left-margin icon-desc" onClick={() => {deleteCourse(course.id)} }><span className="material-icons">delete</span> Löschen</button>
+                                            </td>
                                         </tr>
                                 }) : null)
                             }
@@ -88,10 +96,10 @@ const Courses = () => {
                     </ul>*/}
                 </Route>
                 <Route exact path={`${path}/new`}>
-                    <CourseCreator />
+                    <CourseCreator loadCoursesCb={ loadCourses } />
                 </Route>
                 <Route exact path={`${path}/join`}>
-                    <CourseJoin />
+                    <CourseJoin loadCoursesCb={ loadCourses } />
                 </Route>
                 <Route exact path={`${path}/:courseId`}>
                     <Course />

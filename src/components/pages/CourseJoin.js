@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { api_join_course_with_token } from "../../scripts/api";
 import ResponseInfo from "../structures/ResponseInfo";
 
-const CourseJoin = () => {
+const CourseJoin = ({ loadCoursesCb }) => {
     let history = useHistory();
     let errorString = 'Kurs konnte nicht beigetreten werden!';
     const [validJoin, setValidJoin] = useState(null);
@@ -16,6 +16,7 @@ const CourseJoin = () => {
             const status = await api_join_course_with_token(token);
             switch (parseInt(status)) {
                 case 204:
+                    await loadCoursesCb();
                     setValidJoin(true);
                     break;
                 case 401:

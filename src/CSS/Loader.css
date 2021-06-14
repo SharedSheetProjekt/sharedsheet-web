@@ -5,7 +5,7 @@ div#loader-container {
     width: 100%;
     height: 100%;
     background-color: white;
-    animation: transition 0.2s ease-in-out 0s 1 normal;
+    animation: transition 0s ease-in-out 0s 1 normal;
 }
 
 div#loader {

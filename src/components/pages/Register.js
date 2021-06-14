@@ -88,7 +88,7 @@ const Register = () => {
 
     return (
         <div>
-            <h1>SharedSheets</h1>
+            <h1 className="rainbow">SharedSheets</h1>
             <hr />
             <h2>Registrierung</h2>
 
@@ -98,7 +98,7 @@ const Register = () => {
                 <label htmlFor="password">Password: </label><br/><input type="password" id="password" onInput={ handlePassword } placeholder="mind. 8 Zeichen" /><br/>
                 <label htmlFor="repeatpassword">Passwort wiederholen: </label><br/><input type="password" id="repeatpassword" onInput={ handlePasswordRepeat } /><br/><br/>
                 
-                <input type="submit" value="Registrieren"/>
+                <button type="submit" className="icon-desc fullbutton"><span className="material-icons">login</span> Registrieren</button>
             </form>
 
             <p>

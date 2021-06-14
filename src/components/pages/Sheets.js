@@ -31,13 +31,7 @@ const Sheets = () => {
         }
     }
     
-    
-    const fakeLoad = () => {
-        setTimeout(() => {setLoading(false);}, 2000);
-        setLoading(true);
-    }
-
-    useEffect(async () => {
+    const loadSheets = async () => {
         const sheets = await api_load_available_sheets();
 
         // Loading-Indicator entfernen
@@ -45,6 +39,15 @@ const Sheets = () => {
 
         //console.log(sheets);
         setAvailableSheets(sheets);
+    }
+    
+    const fakeLoad = () => {
+        setTimeout(() => {setLoading(false);}, 2000);
+        setLoading(true);
+    }
+
+    useEffect(async () => {
+        await loadSheets();
     }, []);
 
     return (
@@ -63,10 +66,10 @@ const Sheets = () => {
                     <table class="item-list">
                         <thead>
                             <tr>
-                                <th>Name</th>
+                                <th className="left">Name</th>
                                 <th>Autor</th>
                                 <th>Fälligkeitsdatum</th>
-                                <th>Aktionen</th>
+                                <th>Aktion</th>
                             </tr>
                         </thead>
 
@@ -74,11 +77,11 @@ const Sheets = () => {
                             {
                                 (availableSheets ? availableSheets.map((sheet) => {
                                     // Return the sheet as row, which will redirect the user to the sheet-view:
-                                    return <tr onClick={() => history.push('/sheets/' + sheet.id)}>
-                                            <td>{ sheet.title }</td>
-                                            <td>{ sheet.author }</td>
-                                            <td><Moment date={sheet.due} add={{ hours: 2 }} format="DD.MM.YYYY HH:mm" /></td>
-                                            <td><button onClick={() => {deleteSheet(sheet.id)} }>Löschen</button></td>
+                                    return <tr>
+                                            <td onClick={() => history.push('/sheets/' + sheet.id)}>{ sheet.title }</td>
+                                            <td onClick={() => history.push('/sheets/' + sheet.id)} className="center">{ sheet.author }</td>
+                                            <td onClick={() => history.push('/sheets/' + sheet.id)} className="center"><Moment date={sheet.due} format="DD.MM.YYYY HH:mm" /></td>
+                                            <td className="center"><button className="btn-no-margin icon-desc" onClick={() => {deleteSheet(sheet.id)} }><span className="material-icons">delete</span> Löschen</button></td>
                                         </tr>
                                 }) : null)
                             }
@@ -102,7 +105,7 @@ const Sheets = () => {
                     <Loader isLoading={ loading } />*/}
                 </Route>
                 <Route exact path={`${path}/new`}>
-                    <SheetCreator />
+                    <SheetCreator loadSheetsCb={ loadSheets } />
                 </Route>
                 <Route exact path={`${path}/:sheetID/edit/:widgetID`}>
                     <WidgetEditor />

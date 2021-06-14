@@ -34,6 +34,10 @@ const SolutionViewer = () => {
             <br /><br />
 
             {
+                (solutions.length == 0 ? <p>Keine Lösungen vorhanden!</p> : null)
+            }
+
+            {
                 solutions?.map((solutionByUser) => {
                     const solutions = Object.entries(solutionByUser.solutions);
                     return (

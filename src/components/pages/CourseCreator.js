@@ -3,7 +3,7 @@ import { useHistory } from 'react-router';
 import { api_create_new_course } from '../../scripts/api';
 import ResponseInfo from '../structures/ResponseInfo';
 
-const CourseCreator = () => {
+const CourseCreator = ({ loadCoursesCb }) => {
     let history = useHistory();
 
     const [courseName, setCourseName] = useState('');
@@ -18,6 +18,7 @@ const CourseCreator = () => {
 
         if (courseName !== '') {
             if (await api_create_new_course(courseName)) {
+                await loadCoursesCb();
                 history.push('/courses');
                 setValidCreation(true);
             }

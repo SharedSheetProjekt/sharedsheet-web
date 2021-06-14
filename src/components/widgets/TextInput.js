@@ -4,7 +4,7 @@ import { api_create_new_solution } from "../../scripts/api";
 import WidgetScaffold from "./WidgetScaffold";
 import SolutionList from './SolutionList';
 
-const TextInput = ({ widgetID, type, placeholder, title, solutions }) => {
+const TextInput = ({ widgetID, type, placeholder, title, solutions, loadSheetCb }) => {
     let {path, url} = useRouteMatch();
     const history = useHistory();
 
@@ -25,7 +25,7 @@ const TextInput = ({ widgetID, type, placeholder, title, solutions }) => {
                     return false;
                 }
             } }>Abgeben</button>
-            <SolutionList solutions={ solutions } />
+            <SolutionList solutions={ solutions } loadSheetCb={ loadSheetCb } />
         </WidgetScaffold>
     )
 }

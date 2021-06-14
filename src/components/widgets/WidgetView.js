@@ -3,7 +3,7 @@ import Image from "./Image";
 import TextInput from "./TextInput";
 import Upload from "./Upload";
 
-const WidgetView = ({widget}) => {
+const WidgetView = ({ widget, loadSheetCb }) => {
     const content = JSON.parse(widget.content);
 
                 switch (widget.type) {
@@ -14,10 +14,10 @@ const WidgetView = ({widget}) => {
                         return <Image widgetID={ widget.id } key={ widget.id } src={ content.src } alt={ content.alt } title={ widget.title } />;
                         break;
                     case 'TextInputWidget':
-                        return <TextInput widgetID={ widget.id } key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } title={ widget.title } solutions={ widget.solutions } />;
+                        return <TextInput widgetID={ widget.id } key={ widget.id } type={ content.fieldType } placeholder={ content.placeholder } title={ widget.title } solutions={ widget.solutions } loadSheetCb={ loadSheetCb } />;
                         break;
                     case 'UploadWidget':
-                        return <Upload widgetID={ widget.id } key={ widget.id } hint={ content.hint } fileTypes={ content.filetypes } maxFileSize={ content.size } title={ widget.title } solutions={ widget.solutions } />;
+                        return <Upload widgetID={ widget.id } key={ widget.id } hint={ content.hint } fileTypes={ content.filetypes } maxFileSize={ content.size } title={ widget.title } solutions={ widget.solutions } loadSheetCb={ loadSheetCb } />;
                         break;
                     default:
                         return null;

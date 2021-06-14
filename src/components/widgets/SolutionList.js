@@ -2,12 +2,11 @@ import Moment from 'react-moment';
 import { api_delete_solution } from '../../scripts/api';
 import FileDownload from '../structures/FileDownload';
 
-const SolutionList = ({ solutions }) => {
+const SolutionList = ({ solutions, loadSheetCb }) => {
     const deleteSolution = async (solutionId) => {
         const deletionSuccess = await api_delete_solution(solutionId);
         if (deleteSolution) {
-            window.location.reload();
-            return false;
+            await loadSheetCb();
         }
     }
     

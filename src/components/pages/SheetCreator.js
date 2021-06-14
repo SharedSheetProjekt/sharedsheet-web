@@ -4,7 +4,7 @@ import { api_create_new_sheet } from '../../scripts/api';
 
 import ResponseInfo from '../structures/ResponseInfo';
 
-const SheetCreator = () => {
+const SheetCreator = ({ loadSheetsCb }) => {
     let history = useHistory();
 
     const [validCreation, setValidCreation] = useState(null);
@@ -20,6 +20,7 @@ const SheetCreator = () => {
             const sheetId = await api_create_new_sheet(title, description, submission);
 
             if (sheetId) {
+                loadSheetsCb();
                 history.push(`/sheets/${sheetId}`);
                 setValidCreation(true);
             }

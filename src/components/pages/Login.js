@@ -57,7 +57,7 @@ const Login = () => {
 
     return (
         <div>
-            <h1>SharedSheets</h1>
+            <h1 className="rainbow">SharedSheets</h1>
             <hr />
             <h2>Anmeldung</h2>
 
@@ -68,7 +68,7 @@ const Login = () => {
                 <label htmlFor="password">Passwort: </label><br/>
                 <input type="password" id="password" onChange={ handlePassword } required /><br/><br/>
                 
-                <input type="submit" value="Anmelden" />
+                <button type="submit" className="icon-desc fullbutton"><span className="material-icons">login</span> Anmelden</button>
             </form>
 
             <p>
