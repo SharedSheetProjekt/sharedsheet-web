@@ -14,7 +14,7 @@ const SolutionList = ({ solutions, loadSheetCb }) => {
     if (solutions.length !== 0) {
         return (
             <div>
-                <details open="true">
+                <details open>
                     <summary style={{ cursor: 'pointer' }}>{(solutions.length > 1 ? 'Deine Lösungen' : 'Deine Lösung')}</summary>
                     {
                         (solutions ? solutions.map((solution) => {

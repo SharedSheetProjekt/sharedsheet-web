@@ -59,7 +59,7 @@ const Courses = () => {
                         history.push('/courses/join');
                     }}><span className="material-icons">group_add</span>Kurs beitreten</button>
 
-                    <table class="item-list">
+                    <table className="item-list">
                         <thead>
                             <tr>
                                 <th className="left">Name</th>
@@ -71,7 +71,7 @@ const Courses = () => {
                             {
                                 (availableCourses ? availableCourses.map((course) => {
                                     // Return the sheet as row, which will redirect the user to the course-view:
-                                    return <tr>
+                                    return <tr key={ course.id }>
                                             <td onClick={() => history.push('/courses/' + course.id)}>{ course.name }</td>
                                             <td className="right">
                                                 <button onClick={() => copyCourseInviteToken(course.id)} className="btn-no-margin icon-desc"><span className="material-icons">person_add</span> Einladen</button>

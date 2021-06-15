@@ -44,7 +44,7 @@ const Header = () => {
                     </li>
                 </ul>
             </div>
-            <button class="icon-desc btn-no-margin" style={{ marginRight: '20px' }} onClick={ () => {
+            <button className="icon-desc btn-no-margin" style={{ marginRight: '20px' }} onClick={ () => {
                 auth.logout(() => {
                     //console.log('Logout!');
                     history.push('/');

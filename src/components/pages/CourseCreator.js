@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { api_create_new_course } from '../../scripts/api';
 import ResponseInfo from '../structures/ResponseInfo';
@@ -8,6 +8,13 @@ const CourseCreator = ({ loadCoursesCb }) => {
 
     const [courseName, setCourseName] = useState('');
     const [validCreation, setValidCreation] = useState(null);
+
+    useEffect(() => {
+        return () => {
+            setCourseName('');
+            setValidCreation(null);
+        }
+    }, []);
 
     const handleCourseName = (e) => {
         setCourseName(e.target.value);

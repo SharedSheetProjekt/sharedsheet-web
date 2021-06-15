@@ -17,12 +17,11 @@ const TextInput = ({ widgetID, type, placeholder, title, solutions, loadSheetCb 
 
     return (
         <WidgetScaffold widgetID={ widgetID }>
-            <input type={ type } placeholder={ placeholder } onChange={ handleInputChange } />
+            <input data-id={ widgetID } type={ type } placeholder={ placeholder } defaultValue={ solution } onChange={ handleInputChange } />
             <button className="fullbutton animated-button" style={{display: solution != '' ? 'block' : 'none'}}  onClick={ async () => {
                 if (solution) {
                     await api_create_new_solution(widgetID, 'text', JSON.stringify({text: solution}));
-                    window.location.reload();
-                    return false;
+                    loadSheetCb();
                 }
             } }>Abgeben</button>
             <SolutionList solutions={ solutions } loadSheetCb={ loadSheetCb } />

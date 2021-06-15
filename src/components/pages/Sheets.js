@@ -63,7 +63,7 @@ const Sheets = () => {
                         <span className="material-icons">note_add</span>Neues Sheet erstellen
                     </button>
 
-                    <table class="item-list">
+                    <table className="item-list">
                         <thead>
                             <tr>
                                 <th className="left">Name</th>
@@ -77,7 +77,7 @@ const Sheets = () => {
                             {
                                 (availableSheets ? availableSheets.map((sheet) => {
                                     // Return the sheet as row, which will redirect the user to the sheet-view:
-                                    return <tr>
+                                    return <tr key={sheet.id}>
                                             <td onClick={() => history.push('/sheets/' + sheet.id)}>{ sheet.title }</td>
                                             <td onClick={() => history.push('/sheets/' + sheet.id)} className="center">{ sheet.author }</td>
                                             <td onClick={() => history.push('/sheets/' + sheet.id)} className="center"><Moment date={sheet.due} format="DD.MM.YYYY HH:mm" /></td>

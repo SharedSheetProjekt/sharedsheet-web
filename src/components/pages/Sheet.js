@@ -63,7 +63,7 @@ const Sheet = () => {
                         <p style={{ marginTop: '-1.5rem' }}>{sheet.description}</p>
                     </td>
                     <td width="80px" style={{ textAlign: 'right', display: (sheet?.canEdit ? 'table-cell' : 'none') }}>
-                        <button class="icon-desc btn-no-margin" title="Neues Widget hinzufügen" style={{ whiteSpace: 'nowrap' }} onClick={() => {
+                        <button className="icon-desc btn-no-margin" title="Neues Widget hinzufügen" style={{ whiteSpace: 'nowrap' }} onClick={() => {
                             history.push(`/sheets/${sheetID}/new`);
                         }}><span className="material-icons">add_box</span>Neues Widget</button>
                     </td>
@@ -87,12 +87,12 @@ const Sheet = () => {
             </div>*/}
             {sheet.widgets ? sheet.widgets.map((widget) => {
                 return (
-                    <div className="widget">
+                    <div key={widget.id} className="widget">
                         <div className="widget-editbar">
-                            <button className="flat-button" style={{marginRight: "10px"}} onClick={() => history.push(`${url}/edit/${widget.id}`)}><span class="material-icons">edit</span></button>
-                            <button className="flat-button" style={{marginRight: "10px"}} onClick={() => deleteWidget(widget)}><span class="material-icons">delete</span></button>
-                            <button className="flat-button" style={{marginRight: "10px"}} onClick={() => rearrangeWidget(widget, 'up')}><span class="material-icons">arrow_upward</span></button>
-                            <button className="flat-button" onClick={() => rearrangeWidget(widget, 'down')}><span class="material-icons">arrow_downward</span></button>
+                            <button className="flat-button" style={{marginRight: "10px"}} onClick={() => history.push(`${url}/edit/${widget.id}`)}><span className="material-icons">edit</span></button>
+                            <button className="flat-button" style={{marginRight: "10px"}} onClick={() => deleteWidget(widget)}><span className="material-icons">delete</span></button>
+                            <button className="flat-button" style={{marginRight: "10px"}} onClick={() => rearrangeWidget(widget, 'up')}><span className="material-icons">arrow_upward</span></button>
+                            <button className="flat-button" onClick={() => rearrangeWidget(widget, 'down')}><span className="material-icons">arrow_downward</span></button>
                         </div>
 
                         <h3>{ widget.title }</h3>

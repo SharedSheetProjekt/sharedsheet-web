@@ -175,7 +175,7 @@ const WidgetEditor = () => {
             <h1>Widget editieren</h1>
             <button onClick={() => {
                 history.push(`/sheets/${sheetID}`);
-            }}><span class="material-icons">arrow_left</span> Zurück zum Sheet</button>
+            }}><span className="material-icons">arrow_left</span> Zurück zum Sheet</button>
 
             <br/><br/>
 
